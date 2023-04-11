@@ -7,7 +7,7 @@ using Vector3 = UnityEngine.Vector3;
 using System.Numerics;
 public class bul_move : MonoBehaviour
 {
-          private float speed=10f;
+          private float speed=1f;
  
 void Start(){
     Destroy(gameObject,3f);

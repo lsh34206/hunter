@@ -36,19 +36,27 @@ public Text dia_t;
 public int bul_speed=1;
 public int mon_speed=1;
 
-       public BigInteger my_at_val;
+    public int stage = 1;
+    public Text stage_t;
+
+    public BigInteger my_at_val;
               public BigInteger zuc_at_val;
                       public BigInteger my_hp_val;
               public BigInteger zuc_hp_val;
                 public BigInteger my_hhp_val;
               public BigInteger zuc_hhp_val;
 
-           
-            
-                          
-                             
+    public BigInteger zuc_drop_G;
+
+
+
+
+
+
+
+
     // Start is called before the first frame update
-void Awake(){
+    void Awake(){
     my_hp_val=100;
              my_hhp_val=100;
                zuc_hp_val=100;
@@ -72,7 +80,38 @@ void Awake(){
     {
 
     }
-      
+     public void stage_fan(int stage)
+    {
+        stage_t.text = stage + "스테이지".ToString();
+        zuc_hp_val = 100;
+        zuc_hhp_val = 100;
+        if (stage == 1)
+        {
+            zuc_hp_val = 100;
+            zuc_hhp_val = 100;
+            zuc_drop_G = 10;
+           
+        }else if (stage == 2)
+        {
+            zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+        }
+        else
+
+        if(stage < 1)
+        {
+            stage_fan(1);
+        }
+    }
+    public void stage_back()
+    {
+        stage_fan(stage--);
+    }
+    public void stage_next()
+    {
+        stage_fan(stage++);
+    }
     public void txtload(){
         G_t.text=G.ToString();
            dia_t.text=dia.ToString();
