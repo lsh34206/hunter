@@ -10,7 +10,7 @@ public class bul_move : MonoBehaviour
           private float speed=1f;
  
 void Start(){
-    Destroy(gameObject,3f);
+    Destroy(gameObject,6f);
 }
         void OnCollisionEnter2D(Collision2D col){
 if(col.collider.CompareTag("monster")){

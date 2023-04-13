@@ -15,6 +15,7 @@ public class mon_move : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, 7f);
+       
     }
 
     public void barctrl(){
@@ -28,14 +29,17 @@ mybarfill+= 0.01f;
                    if(GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val <=0){
 Destroy(gameObject);
             GameObject.Find("all_canv").GetComponent<InGame>().G += GameObject.Find("all_canv").GetComponent<InGame>().zuc_drop_G;
+            GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val = GameObject.Find("all_canv").GetComponent<InGame>().zuc_hp_val;
 GameObject.Find("all_canv").GetComponent<InGame>().txtload();
                    }
-                }
+              
+    }
     
 
            void OnCollisionEnter2D(Collision2D col){
 
         GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val -=GameObject.Find("all_canv").GetComponent<InGame>().my_at_val;
+
            barctrl();
           
 
@@ -55,7 +59,7 @@ GameObject.Find("all_canv").GetComponent<InGame>().txtload();
         }
         else if(GameObject.Find("all_canv").GetComponent<InGame>().stage == 2)
         {
-            speed = 0.7f;
+            speed = 0.5f;
         }
         transform.Translate(new Vector3(speed, 0, 0));
     }
