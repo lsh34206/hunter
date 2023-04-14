@@ -15,7 +15,7 @@ public class data{
     public string G;
 public int dia;
 public int at_lv;
-public int speed_lv;
+public int kill_count;
     public int crihwac_lv;
     public int cridem_lv;
     public int dia_drop_lv;
@@ -32,7 +32,7 @@ public class InGame : MonoBehaviour
         public BigInteger G;
 public int dia;
     public int at_lv;
-    public int speed_lv;
+    public int kill_count;
     public int crihwac_lv;
     public int cridem_lv;
     public int dia_drop_lv;
@@ -59,6 +59,7 @@ public Text dia_t;
 
     public BigInteger zuc_drop_G;
 
+    public Text next_stage_count_text;
 
 
     public SpriteRenderer mon_img;
@@ -91,7 +92,7 @@ public Text dia_t;
     public BigInteger at_lv_eff;
     public BigInteger crihwac_lv_eff;
     public BigInteger cridem_lv_eff;
-    public BigInteger dia_drop_lv_eff;
+    public int dia_drop_lv_eff;
     public BigInteger bul_speed_lv_eff;
     public BigInteger jackpot_lv_eff;
     public float auto_lv_eff;
@@ -110,6 +111,9 @@ public Text dia_t;
     public BigInteger at_up_lv_udg;
     public BigInteger gold_up_lv_udg;
 
+
+    public GameObject alert;
+    public Text alert_text;
     // Start is called before the first frame update
     void Awake(){
     my_hp_val=100;
@@ -260,7 +264,7 @@ public Text dia_t;
         }
 
 
-
+        zuc_drop_G += zuc_drop_G / 100 * gold_up_lv_eff;
 
         if (stage < 1)
         {
@@ -269,6 +273,7 @@ public Text dia_t;
         }
 
     }
+
     public void stage_back()
     {
         stage--;
@@ -368,6 +373,144 @@ public Text dia_t;
 
 
     }
+
+    public void at_up_func()
+    {
+        if (G < at_lv_udg)
+        {
+            alert_text.text = "골드부족";
+            alert.SetActive(true);
+        }
+        else
+        {
+            at_lv++;
+            G -= at_lv_udg;
+            txtload();
+        }
+    }
+
+
+    public void crihwac_up_func()
+    {
+        if (G < crihwac_lv_udg)
+        {
+            alert_text.text = "골드부족";
+            alert.SetActive(true);
+        }
+        else
+        {
+            crihwac_lv++;
+            G -= crihwac_lv_udg;
+            txtload();
+        }
+    }
+
+    public void cridem_up_func()
+    {
+        if (G < cridem_lv_udg)
+        {
+            alert_text.text = "골드부족";
+            alert.SetActive(true);
+        }
+        else
+        {
+            cridem_lv++;
+            G -= cridem_lv_udg;
+            txtload();
+        }
+    }
+
+    public void dia_drop_up_func()
+    {
+        if (G < dia_drop_lv_udg)
+        {
+            alert_text.text = "골드부족";
+            alert.SetActive(true);
+        }
+        else
+        {
+            dia_drop_lv++;
+            G -= dia_drop_lv_udg;
+            txtload();
+        }
+    }
+
+    public void jackpot_up_func()
+    {
+        if (G < jackpot_lv_udg)
+        {
+            alert_text.text = "골드부족";
+            alert.SetActive(true);
+        }
+        else
+        {
+            jackpot_lv++;
+            G -= jackpot_lv_udg;
+            txtload();
+        }
+    }
+
+    public void jackpot_hwac_up_func()
+    {
+        if (G < jackpot_hwac_lv_udg)
+        {
+            alert_text.text = "골드부족";
+            alert.SetActive(true);
+        }
+        else
+        {
+            jackpot_hwac_lv++;
+            G -= jackpot_hwac_lv_udg;
+            txtload();
+        }
+    }
+
+    public void auto_up_func()
+    {
+        if (G < auto_lv_udg)
+        {
+            alert_text.text = "골드부족";
+            alert.SetActive(true);
+        }
+        else
+        {
+            auto_lv++;
+            G -= auto_lv_udg;
+            txtload();
+        }
+    }
+
+    public void dia_at_up_func()
+    {
+        if (dia<1)
+        {
+            alert_text.text = "다이아 부족";
+            alert.SetActive(true);
+        }
+        else
+        {
+          at_dia_lv++;
+            dia--;
+            txtload();
+        }
+    }
+
+    public void dia_gold_up_func()
+    {
+        if (dia < 1)
+        {
+            alert_text.text = "다이아 부족";
+            alert.SetActive(true);
+        }
+        else
+        {
+            gold_dia_lv++;
+            dia--;
+            txtload();
+        }
+    }
+
+
     public void Load(){
       
    string path = Application.persistentDataPath + "/data.Json";
@@ -384,7 +527,7 @@ if(File.Exists(path)){
 dia=datavar.dia;
 
             at_lv = datavar.at_lv;
-            speed_lv = datavar.speed_lv;
+            kill_count = datavar.kill_count;
             crihwac_lv = datavar.crihwac_lv;
             cridem_lv = datavar.cridem_lv;
             dia_drop_lv = datavar.dia_drop_lv;
@@ -393,12 +536,13 @@ dia=datavar.dia;
             jackpot_hwac_lv = datavar.jackpot_hwac_lv;
             at_dia_lv = datavar.at_dia_lv;
             gold_dia_lv = datavar.gold_dia_lv;
+            kill_count = datavar.kill_count;
         }
         else{
 G=0;
 dia=0;
 at_lv=1;
-            speed_lv = 1;
+            kill_count= 0;
     crihwac_lv=0;
     cridem_lv=0;
     dia_drop_lv=0;
@@ -419,7 +563,7 @@ at_lv=1;
                 
 datavar.dia=dia;
          datavar.at_lv =at_lv;
-        datavar.speed_lv = speed_lv;
+        datavar.kill_count = kill_count;
         datavar.crihwac_lv = crihwac_lv;
         datavar.cridem_lv = cridem_lv;
         datavar.dia_drop_lv = dia_drop_lv;
@@ -428,9 +572,9 @@ datavar.dia=dia;
         datavar.jackpot_hwac_lv = jackpot_hwac_lv;
         datavar.at_dia_lv = at_dia_lv;
         datavar.gold_dia_lv = gold_dia_lv;
+       datavar.kill_count= kill_count;
 
-
-        string json = JsonUtility.ToJson(datavar);
+    string json = JsonUtility.ToJson(datavar);
         Debug.Log(json);
         string path = Application.persistentDataPath + "/data.Json";
         File.WriteAllText(path,json);

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Numerics;
 using Vector3 = UnityEngine.Vector3;
-using System.Numerics;
+using Random = UnityEngine.Random;
 public class mon_move : MonoBehaviour
 {
       private float speed=1f;
@@ -27,18 +27,42 @@ mybarfill+= 0.01f;
    zuc_slider.value =mybarfill;
                   
                    if(GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val <=0){
+           
 Destroy(gameObject);
             GameObject.Find("all_canv").GetComponent<InGame>().G += GameObject.Find("all_canv").GetComponent<InGame>().zuc_drop_G;
             GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val = GameObject.Find("all_canv").GetComponent<InGame>().zuc_hp_val;
-GameObject.Find("all_canv").GetComponent<InGame>().txtload();
+
+            if (Random.Range(1, 101) < 4)
+            {
+                GameObject.Find("all_canv").GetComponent<InGame>().dia += GameObject.Find("all_canv").GetComponent<InGame>().dia_drop_lv_eff;
+            }
+
+
+
+            if (Random.Range(1, 101) < GameObject.Find("all_canv").GetComponent<InGame>().jackpot_hwac_lv)
+            {
+                GameObject.Find("all_canv").GetComponent<InGame>().G += GameObject.Find("all_canv").GetComponent<InGame>().zuc_drop_G * GameObject.Find("all_canv").GetComponent<InGame>().jackpot_lv_eff;
+            }
+
+          
+
+
+            GameObject.Find("all_canv").GetComponent<InGame>().txtload();
                    }
               
     }
     
 
            void OnCollisionEnter2D(Collision2D col){
-
-        GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val -=GameObject.Find("all_canv").GetComponent<InGame>().my_at_val;
+        if (Random.Range(1, 101) < GameObject.Find("all_canv").GetComponent<InGame>().crihwac_lv_eff)
+        {
+            GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val -= GameObject.Find("all_canv").GetComponent<InGame>().my_at_val + GameObject.Find("all_canv").GetComponent<InGame>().my_at_val / 100 * GameObject.Find("all_canv").GetComponent<InGame>().cridem_lv_eff;
+        }
+        else
+        {
+            GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val -= GameObject.Find("all_canv").GetComponent<InGame>().my_at_val;
+        }
+     
 
            barctrl();
           
