@@ -15,20 +15,47 @@ public class mon_move : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, 7f);
-       
+       barctrl();
     }
 
     public void barctrl(){
+
                            BigInteger myhp100 =GameObject.Find("all_canv").GetComponent<InGame>().zuc_hp_val / 100;
           float mybarfill = 0;
    for(BigInteger i = 0;i < GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val;i+= myhp100){
 mybarfill+= 0.01f;
 }
    zuc_slider.value =mybarfill;
+
+
+
+
+    BigInteger max = 100;
+   BigInteger subxp = GameObject.Find("all_canv").GetComponent<InGame>().xp;
+  GameObject.Find("all_canv").GetComponent<InGame>().lv = 1;
+  for(BigInteger i=subxp;max < subxp;subxp-=max){
+    GameObject.Find("all_canv").GetComponent<InGame>().lv++;
+    max += (max/100);
+}
+
+
+
+
+   BigInteger max100 = max / 100;
+  float lvfill = 0;
+   for(BigInteger i = 0;i < subxp;i += max100){
+ lvfill+= 0.01f;
+}
+GameObject.Find("all_canv").GetComponent<InGame>().xp_bar.fillAmount= lvfill;
+GameObject.Find("all_canv").GetComponent<InGame>().xp_text.text=GameObject.Find("all_canv").GetComponent<InGame>().lv+"lv".ToString();
+
+
+
                   
                    if(GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val <=0){
            
 Destroy(gameObject);
+GameObject.Find("all_canv").GetComponent<InGame>().xp+=GameObject.Find("all_canv").GetComponent<InGame>().zuc_drop_xp;
             GameObject.Find("all_canv").GetComponent<InGame>().G += GameObject.Find("all_canv").GetComponent<InGame>().zuc_drop_G;
             GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val = GameObject.Find("all_canv").GetComponent<InGame>().zuc_hp_val;
 
@@ -44,12 +71,23 @@ Destroy(gameObject);
                 GameObject.Find("all_canv").GetComponent<InGame>().G += GameObject.Find("all_canv").GetComponent<InGame>().zuc_drop_G * GameObject.Find("all_canv").GetComponent<InGame>().jackpot_lv_eff;
             }
 
-          
+int kill_count=0;
+          for(int i =0;i<GameObject.Find("all_canv").GetComponent<InGame>().stage;i++){
+            kill_count+=300;
+            
+ if(GameObject.Find("all_canv").GetComponent<InGame>().kill_count >= (kill_count-=300)&&GameObject.Find("all_canv").GetComponent<InGame>().kill_count < kill_count){
+        
+    }else{
+        GameObject.Find("all_canv").GetComponent<InGame>().kill_count++;
+    }
+
+          }
 
 
+barctrl();
             GameObject.Find("all_canv").GetComponent<InGame>().txtload();
                    }
-              
+                GameObject.Find("all_canv").GetComponent<InGame>().txtload();
     }
     
 

@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +11,12 @@ using System.Numerics;
    using Random = UnityEngine.Random;
 using System.Text.RegularExpressions;
 using Vector3 = UnityEngine.Vector3;
+using TMPro;
+
  [System.Serializable]
 public class data{
     public string G;
+        public string xp;
 public int dia;
 public int at_lv;
 public int kill_count;
@@ -24,6 +28,8 @@ public int kill_count;
     public int jackpot_hwac_lv;
     public int at_dia_lv;
     public int gold_dia_lv;
+
+        public int bul_zin_lv;
 
 }
 public class InGame : MonoBehaviour
@@ -41,6 +47,7 @@ public int dia;
     public int jackpot_hwac_lv;
     public int at_dia_lv;
     public int gold_dia_lv;
+        public int bul_zin_lv;
     data datavar = new data();
 public Text G_t;
 public Text dia_t;
@@ -75,7 +82,24 @@ public Text dia_t;
     public Sprite mon_img_10;
     public Sprite mon_img_11;
 
+    public Image bul_img;
+    public Sprite bul_img_1;
+    public Sprite bul_img_2;
+ public Sprite bul_img_3;
+    public Sprite bul_img_4;
+    public Sprite bul_img_5;
+ public Sprite bul_img_6;
+    public Sprite bul_img_7;
+    public Sprite bul_img_8;
+    public Sprite bul_img_9;
+    public Sprite bul_img_10;
+    public Sprite bul_img_11;
+       public Sprite bul_img_12;
+          public Sprite bul_img_13;
+             public Sprite bul_img_14;
 
+        public Text bul_name;
+             public Text bul_up_btn_about;
 
     public Text at_lv_about_text;
     public Text crihwac_lv_about_text;
@@ -87,6 +111,9 @@ public Text dia_t;
     public Text jackpot_hwac_lv_about_text;
     public Text at_up_lv_about_text;
     public Text gold_up_lv_about_text;
+
+      public TextMeshProUGUI xp_text;
+      public Image xp_bar;
 
 
     public BigInteger at_lv_eff;
@@ -111,9 +138,17 @@ public Text dia_t;
     public BigInteger at_up_lv_udg;
     public BigInteger gold_up_lv_udg;
 
+    public BigInteger zuc_drop_xp;
+    public BigInteger xp;
 
+      public BigInteger bul_zin_eff;
+      public int bul_zin_udg;
+
+    public int lv;
     public GameObject alert;
     public Text alert_text;
+
+   public Button yeongu_btn;
     // Start is called before the first frame update
     void Awake(){
     my_hp_val=100;
@@ -126,7 +161,6 @@ public Text dia_t;
     {
     Load();
         txtload();
-      // barctrl();
        my_hp_val=100;
              my_hhp_val=100;
                zuc_hp_val=100;
@@ -135,6 +169,8 @@ public Text dia_t;
         stage = 1;
         stage_fan();
     }
+public Text yeongu_btn_text;
+  
   
     // Update is called once per frame
     void Update()
@@ -143,31 +179,36 @@ public Text dia_t;
     }
      public void stage_fan()
     {
-        stage_t.text = stage + "Ω∫≈◊¿Ã¡ˆ".ToString();
+        stage_t.text = stage + "Ïä§ÌÖåÏù¥ÏßÄ".ToString();
         zuc_hp_val = 100;
         zuc_hhp_val = 100;
+        zuc_drop_xp=10;
         if (stage == 1)
         {
             zuc_hp_val = 100;
             zuc_hhp_val = 100;
             zuc_drop_G = 10;
+             zuc_drop_xp=10;
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_1;
         }else if (stage == 2)
         {
             zuc_hp_val = 300;
             zuc_hhp_val = 300;
             zuc_drop_G = 20;
+              zuc_drop_xp=20;
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_2;
         }else if (stage == 3)
         {
             zuc_hp_val = 300;
             zuc_hhp_val = 300;
             zuc_drop_G = 20;
+              zuc_drop_xp=20;
             for(int i = 0; i < 1; i++)
             {
                 zuc_hp_val *= 5;
                 zuc_hhp_val *= 5;
                 zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
             }
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_3;
         }
@@ -176,89 +217,103 @@ public Text dia_t;
             zuc_hp_val = 300;
             zuc_hhp_val = 300;
             zuc_drop_G = 20;
-            for (int i = 0; i < 2; i++)
+              zuc_drop_xp=20;
+            for(int i = 0; i < 2; i++)
             {
                 zuc_hp_val *= 5;
                 zuc_hhp_val *= 5;
                 zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
             }
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_4;
         }
         else if (stage == 5)
         {
-            zuc_hp_val = 300;
+        zuc_hp_val = 300;
             zuc_hhp_val = 300;
             zuc_drop_G = 20;
-            for (int i = 0; i <3; i++)
+              zuc_drop_xp=20;
+            for(int i = 0; i < 3; i++)
             {
                 zuc_hp_val *= 5;
                 zuc_hhp_val *= 5;
                 zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
             }
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_5;
         }
         else if (stage ==6)
         {
-            zuc_hp_val = 300;
+          zuc_hp_val = 300;
             zuc_hhp_val = 300;
             zuc_drop_G = 20;
-            for (int i = 0; i < 4; i++)
+              zuc_drop_xp=20;
+            for(int i = 0; i < 4; i++)
             {
                 zuc_hp_val *= 5;
                 zuc_hhp_val *= 5;
                 zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
             }
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_6;
         }
         else if (stage == 7)
         {
-            zuc_hp_val = 300;
+         zuc_hp_val = 300;
             zuc_hhp_val = 300;
             zuc_drop_G = 20;
-            for (int i = 0; i < 5; i++)
+              zuc_drop_xp=20;
+            for(int i = 0; i < 5; i++)
             {
                 zuc_hp_val *= 5;
                 zuc_hhp_val *= 5;
                 zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
             }
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_7;
         }
         else if (stage == 8)
         {
-            zuc_hp_val = 300;
+          zuc_hp_val = 300;
             zuc_hhp_val = 300;
             zuc_drop_G = 20;
-            for (int i = 0; i < 6; i++)
+              zuc_drop_xp=20;
+            for(int i = 0; i < 6; i++)
             {
                 zuc_hp_val *= 5;
                 zuc_hhp_val *= 5;
                 zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
             }
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_8;
         }
         else if (stage == 9)
         {
-            zuc_hp_val = 300;
+          zuc_hp_val = 300;
             zuc_hhp_val = 300;
             zuc_drop_G = 20;
-            for (int i = 0; i < 7; i++)
+              zuc_drop_xp=20;
+            for(int i = 0; i < 7; i++)
             {
                 zuc_hp_val *= 5;
                 zuc_hhp_val *= 5;
                 zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
             }
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_9;
         }
         else if (stage ==10)
         {
-            zuc_hp_val = 300;
+           zuc_hp_val = 300;
             zuc_hhp_val = 300;
             zuc_drop_G = 20;
-            for (int i = 0; i < 8; i++)
+              zuc_drop_xp=20;
+            for(int i = 0; i < 8; i++)
             {
                 zuc_hp_val *= 5;
                 zuc_hhp_val *= 5;
                 zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
             }
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_10;
         }
@@ -281,10 +336,28 @@ public Text dia_t;
     }
     public void stage_next()
     {
-        stage++;
-        stage_fan();
+      
+          for(int i =0;i<stage;i++){
+        if(i*300<=kill_count){
+  stage++;
+   
+        }else{
+             stage--;
+            alert_text.text="ÌòÑÏû¨ Ïä§ÌÖåÏù¥ÏßÄÏóêÏÑú Ï†ÅÏùÑ 300ÎßàÎ¶¨ Ïù¥ÏÉÅ Ï≤òÏπòÌïòÏÑ∏Ïöî";
+            alert.SetActive(true);
+        }
+          }
+
+       stage_fan();
     }
     public void txtload(){
+          if(lv <1500){
+        yeongu_btn.interactable=false;
+        yeongu_btn_text.text="1500lv";
+    }else{
+         yeongu_btn.interactable=true;
+          yeongu_btn_text.text="Ïó∞Íµ¨ÏÜå";
+    }
         G_t.text=G.ToString();
            dia_t.text=dia.ToString();
            my_at_val=10;
@@ -296,7 +369,7 @@ public Text dia_t;
             at_lv_udg += at_lv_udg / 100;
             at_bigyo = i+1;
         }
-        at_lv_about_text.text = "∞¯∞›∑¬ ¡ı∞° «ˆ¿Á:" + my_at_val+"\n ∫ÒøÎ:∞ÒµÂ" + at_lv_udg.ToString();
+        at_lv_about_text.text = "Í≥µÍ≤©Î†• Ï¶ùÍ∞Ä ÌòÑÏû¨:" + my_at_val+"\n ÎπÑÏö©:Í≥®Îìú" + at_lv_udg.ToString();
        crihwac_lv_eff=0;
         crihwac_lv_udg = 1000;
         for (int i = 0; i < crihwac_lv; i++)
@@ -304,7 +377,7 @@ public Text dia_t;
             crihwac_lv_eff++;
             crihwac_lv_udg *= 2;
         }
-        crihwac_lv_about_text.text = "ƒ°∏Ì≈∏ »Æ∑¸ «ˆ¿Á:" + crihwac_lv_eff + "\n ∫ÒøÎ:∞ÒµÂ" + crihwac_lv_udg.ToString();
+        crihwac_lv_about_text.text = "ÏπòÎ™ÖÌÉÄ ÌôïÎ•† ÌòÑÏû¨:" + crihwac_lv_eff + "\n ÎπÑÏö©:Í≥®Îìú" + crihwac_lv_udg.ToString();
         cridem_lv_eff = 0;
         cridem_lv_udg = 100;
         for (int i = 0; i < cridem_lv; i++)
@@ -312,7 +385,7 @@ public Text dia_t;
             cridem_lv_eff += i;
             cridem_lv_udg *= cridem_lv_udg / 50;
         }
-        cridem_lv_about_text.text = "ƒ°∏Ì≈∏ µ•πÃ¡ˆ «ˆ¿Á:+" + cridem_lv_eff + "%\n ∫ÒøÎ:∞ÒµÂ" + cridem_lv_udg.ToString();
+        cridem_lv_about_text.text = "ÏπòÎ™ÖÌÉÄ Îç∞ÎØ∏ÏßÄ ÌòÑÏû¨:+" + cridem_lv_eff + "%\n ÎπÑÏö©:Í≥®Îìú" + cridem_lv_udg.ToString();
 
         dia_drop_lv_eff = 1;
         dia_drop_lv_udg = 100000;
@@ -321,7 +394,7 @@ public Text dia_t;
             dia_drop_lv_eff += i;
             dia_drop_lv_udg *= 10;
         }
-        dia_drop_lv_about_text.text = "¥Ÿ¿Ãæ∆ µÂ∂¯Ω√ πﬁ¥¬ ¥Ÿ¿Ãæ∆ «ˆ¿Á:+" + dia_drop_lv_eff + "∞≥\n ∫ÒøÎ:∞ÒµÂ" + dia_drop_lv_udg.ToString();
+        dia_drop_lv_about_text.text = "Îã§Ïù¥ÏïÑ ÎìúÎûçÏãú Î∞õÎäî Îã§Ïù¥ÏïÑ ÌòÑÏû¨:+" + dia_drop_lv_eff + "Í∞ú\n ÎπÑÏö©:Í≥®Îìú" + dia_drop_lv_udg.ToString();
 
         jackpot_lv_eff = 100;
         jackpot_lv_udg = 10000;
@@ -330,7 +403,7 @@ public Text dia_t;
             jackpot_lv_eff *= 5;
             jackpot_lv_udg *= 10;
         }
-        jackpot_lv_about_text.text = "¿Ë∆Ã(∏ÛΩ∫≈Õ √≥ƒ°Ω√ ¥Î∑Æ ∞ÒµÂ »πµÊ) «ˆ¿Á:+" + jackpot_lv_eff + "πË \n ∫ÒøÎ:∞ÒµÂ" + jackpot_lv_udg.ToString();
+        jackpot_lv_about_text.text = "Ïû≠Ìåü(Î™¨Ïä§ÌÑ∞ Ï≤òÏπòÏãú ÎåÄÎüâ Í≥®Îìú ÌöçÎìù) ÌòÑÏû¨:+" + jackpot_lv_eff + "Î∞∞ \n ÎπÑÏö©:Í≥®Îìú" + jackpot_lv_udg.ToString();
 
         auto_lv_eff = 1f;
         auto_lv_udg = 10000;
@@ -339,7 +412,7 @@ public Text dia_t;
             auto_lv_eff -= 0.02f;
             auto_lv_udg += auto_lv_udg / 100 * 20;
         }
-        auto_lv_about_text.text = "√—æÀ ¿⁄µø πﬂªÁ «ˆ¿Á:" + auto_lv_eff + "√ ∏∂¥Ÿ(πﬂªÁ) \n ∫ÒøÎ:∞ÒµÂ" + auto_lv_udg.ToString();
+        auto_lv_about_text.text = "Ï¥ùÏïå ÏûêÎèô Î∞úÏÇ¨ ÌòÑÏû¨:" + auto_lv_eff + "Ï¥àÎßàÎã§(Î∞úÏÇ¨) \n ÎπÑÏö©:Í≥®Îìú" + auto_lv_udg.ToString();
 
         jackpot_hwac_lv_eff = 2;
         jackpot_hwac_lv_udg = 50000;
@@ -348,7 +421,7 @@ public Text dia_t;
             jackpot_hwac_lv_eff += 1;
             jackpot_hwac_lv_udg *= 20;
         }
-        jackpot_hwac_lv_about_text.text = "¿Ë∆Ã»Æ∑¸ «ˆ¿Á:" + jackpot_hwac_lv_eff + "% \n ∫ÒøÎ:∞ÒµÂ" + jackpot_hwac_lv_udg.ToString();
+        jackpot_hwac_lv_about_text.text = "Ïû≠ÌåüÌôïÎ•† ÌòÑÏû¨:" + jackpot_hwac_lv_eff + "% \n ÎπÑÏö©:Í≥®Îìú" + jackpot_hwac_lv_udg.ToString();
 
         at_up_lv_eff = 0;
         at_up_lv_udg = 1;
@@ -357,7 +430,7 @@ public Text dia_t;
             at_up_lv_eff++;
             at_up_lv_udg++;
         }
-        at_up_lv_about_text.text = "√ﬂ∞° ∞¯∞›∑¬ «ˆ¿Á:+" + at_up_lv_eff + "% \n ∫ÒøÎ:¥Ÿ¿Ãæ∆" + at_up_lv_udg.ToString();
+        at_up_lv_about_text.text = "Ï∂îÍ∞Ä Í≥µÍ≤©Î†• ÌòÑÏû¨:+" + at_up_lv_eff + "% \n ÎπÑÏö©:Îã§Ïù¥ÏïÑ" + at_up_lv_udg.ToString();
 
         gold_up_lv_eff = 0;
         gold_up_lv_udg = 1;
@@ -366,19 +439,122 @@ public Text dia_t;
             gold_up_lv_eff++;
             gold_up_lv_udg++;
         }
-        gold_up_lv_about_text.text = "√ﬂ∞° ∞ÒµÂ »πµÊ∑Æ «ˆ¿Á:+" + gold_up_lv_eff + "% \n ∫ÒøÎ:¥Ÿ¿Ãæ∆" + gold_up_lv_udg.ToString();
+        gold_up_lv_about_text.text = "Ï∂îÍ∞Ä Í≥®Îìú ÌöçÎìùÎüâ ÌòÑÏû¨:+" + gold_up_lv_eff + "% \n ÎπÑÏö©:Îã§Ïù¥ÏïÑ" + gold_up_lv_udg.ToString();
+
+bul_zin_eff=1;
+bul_zin_udg=1000;
+if(bul_zin_lv==1){
+    bul_img.sprite=bul_img_1;
+    bul_zin_eff=1;
+    bul_zin_udg=500;
+    bul_name.text="lv.1ÏΩ©ÏïåÌÉÑ(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==2){
+        bul_img.sprite=bul_img_2;
+    bul_zin_eff=2;
+    bul_zin_udg=1000;
+    bul_name.text="lv.2Î°±ÏïåÌÉÑ(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==3){
+        bul_img.sprite=bul_img_3;
+    bul_zin_eff=3;
+    bul_zin_udg=2000;
+    bul_name.text="lv.3Îß§ÎØ∏ ÏûêÏÑù(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==4){
+        bul_img.sprite=bul_img_4;
+    bul_zin_eff=4;
+    bul_zin_udg=4000;
+    bul_name.text="lv.4ÎßàÏπ¥Î°±(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==5){
+        bul_img.sprite=bul_img_5;
+    bul_zin_eff=5;
+    bul_zin_udg=6000;
+    bul_name.text="lv.5ÌñÑÎ≤ÑÍ±∞(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==6){
+        bul_img.sprite=bul_img_6;
+    bul_zin_eff=6;
+    bul_zin_udg=10000;
+    bul_name.text="lv.6Ï≤≠ÏÉàÏπò Í∞ÄÏãú(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==7){
+        bul_img.sprite=bul_img_7;
+    bul_zin_eff=7;
+    bul_zin_udg=15000;
+    bul_name.text="lv.7Í∞ïÎ†•Ìïú Ï≤≠ÏÉàÏπò Í∞ÄÏãú(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==8){
+        bul_img.sprite=bul_img_8;
+    bul_zin_eff=8;
+    bul_zin_udg=20000;
+    bul_name.text="lv.8Í∞ÄÏãú ÌïµÎØ∏ÏÇ¨Ïùº Í∞ÄÏãú(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==9){
+        bul_img.sprite=bul_img_9;
+    bul_zin_eff=9;
+    bul_zin_udg=25000;
+    bul_name.text="lv.9ÏóºÏÇ∞Îì† ÏÇºÍ∞Å ÌîåÎùºÏä§ÌÅ¨(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==10){
+        bul_img.sprite=bul_img_10;
+    bul_zin_eff=10;
+    bul_zin_udg=30000;
+    bul_name.text="lv.10Ïò§ÏßïÏñ¥ ÌïµÎØ∏ÏÇ¨Ïùº(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==11){
+        bul_img.sprite=bul_img_11;
+    bul_zin_eff=11;
+    bul_zin_udg=35000;
+    bul_name.text="lv.11Ïò¨Î¶¨Î∏å(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==12){
+        bul_img.sprite=bul_img_12;
+    bul_zin_eff=12;
+    bul_zin_udg=40000;
+    bul_name.text="lv.12ÏñëÌååÎßÅ(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==13){
+        bul_img.sprite=bul_img_13;
+    bul_zin_eff=13;
+    bul_zin_udg=40000;
+    bul_name.text="lv.13ÏÜåÏõê ÏïåÏïΩ(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")".ToString();
+}else if(bul_zin_lv==14){
+        bul_img.sprite=bul_img_14;
+    bul_zin_eff=14;
+    bul_zin_udg=45000;
+    bul_name.text="lv.14COVID-19(ÌòÑÏû¨ ÏµúÏ¢Ö Í≥µÍ≤©Î†•x"+bul_zin_eff+")MAXLV".ToString();
+}
+
+bul_up_btn_about.text="ÏµúÏ¢Ö Í≥µÍ≤©Î†• Ï¶ùÍ∞Ä[ÌÉÑÏïå Í∞ïÌôî] Îã§Ïù¥ÏïÑ"+bul_zin_udg.ToString();
 
 
-        my_at_val += my_at_val / 100 * at_dia_lv;
+        my_at_val += (my_at_val / 100 * at_dia_lv)*bul_zin_eff;
 
 
+
+
+
+
+next_stage_count_text.text="Îã§Ïùå Ïä§ÌÖåÏù¥ÏßÄ "+(kill_count%300)+"/300ÎßàÎ¶¨".ToString();
     }
+
+      public void bul_zin_up_func()
+    {
+        if(bul_zin_lv ==14){
+             alert_text.text = "ÏµúÍ≥† Î†àÎ≤®";
+            alert.SetActive(true);
+        }else{
+             if (dia< bul_zin_udg)
+        {
+            alert_text.text = "Îã§Ïù¥ÏïÑ Î∂ÄÏ°±";
+            alert.SetActive(true);
+        }
+        else
+        {
+            bul_zin_lv++; 
+            dia -= bul_zin_udg;
+            txtload();
+        }
+        }
+       
+    }
+
 
     public void at_up_func()
     {
         if (G < at_lv_udg)
         {
-            alert_text.text = "∞ÒµÂ∫Œ¡∑";
+            alert_text.text = "Í≥®ÎìúÎ∂ÄÏ°±";
             alert.SetActive(true);
         }
         else
@@ -394,7 +570,7 @@ public Text dia_t;
     {
         if (G < crihwac_lv_udg)
         {
-            alert_text.text = "∞ÒµÂ∫Œ¡∑";
+            alert_text.text = "Í≥®ÎìúÎ∂ÄÏ°±";
             alert.SetActive(true);
         }
         else
@@ -409,7 +585,7 @@ public Text dia_t;
     {
         if (G < cridem_lv_udg)
         {
-            alert_text.text = "∞ÒµÂ∫Œ¡∑";
+            alert_text.text = "Í≥®ÎìúÎ∂ÄÏ°±";
             alert.SetActive(true);
         }
         else
@@ -424,7 +600,7 @@ public Text dia_t;
     {
         if (G < dia_drop_lv_udg)
         {
-            alert_text.text = "∞ÒµÂ∫Œ¡∑";
+            alert_text.text = "Í≥®ÎìúÎ∂ÄÏ°±";
             alert.SetActive(true);
         }
         else
@@ -439,7 +615,7 @@ public Text dia_t;
     {
         if (G < jackpot_lv_udg)
         {
-            alert_text.text = "∞ÒµÂ∫Œ¡∑";
+            alert_text.text = "Í≥®ÎìúÎ∂ÄÏ°±";
             alert.SetActive(true);
         }
         else
@@ -454,7 +630,7 @@ public Text dia_t;
     {
         if (G < jackpot_hwac_lv_udg)
         {
-            alert_text.text = "∞ÒµÂ∫Œ¡∑";
+            alert_text.text = "Í≥®ÎìúÎ∂ÄÏ°±";
             alert.SetActive(true);
         }
         else
@@ -469,7 +645,7 @@ public Text dia_t;
     {
         if (G < auto_lv_udg)
         {
-            alert_text.text = "∞ÒµÂ∫Œ¡∑";
+            alert_text.text = "Í≥®ÎìúÎ∂ÄÏ°±";
             alert.SetActive(true);
         }
         else
@@ -484,7 +660,7 @@ public Text dia_t;
     {
         if (dia<1)
         {
-            alert_text.text = "¥Ÿ¿Ãæ∆ ∫Œ¡∑";
+            alert_text.text = "Îã§Ïù¥ÏïÑ Î∂ÄÏ°±";
             alert.SetActive(true);
         }
         else
@@ -499,7 +675,7 @@ public Text dia_t;
     {
         if (dia < 1)
         {
-            alert_text.text = "¥Ÿ¿Ãæ∆ ∫Œ¡∑";
+            alert_text.text = "Îã§Ïù¥ÏïÑ Î∂ÄÏ°±";
             alert.SetActive(true);
         }
         else
@@ -522,6 +698,7 @@ if(File.Exists(path)){
       
     
             G = BigInteger.Parse(datavar.G); 
+                     xp = BigInteger.Parse(datavar.xp); 
                  
 
 dia=datavar.dia;
@@ -537,6 +714,7 @@ dia=datavar.dia;
             at_dia_lv = datavar.at_dia_lv;
             gold_dia_lv = datavar.gold_dia_lv;
             kill_count = datavar.kill_count;
+                   bul_zin_lv= datavar.bul_zin_lv;
         }
         else{
 G=0;
@@ -551,6 +729,8 @@ at_lv=1;
     jackpot_hwac_lv=0;
     at_dia_lv=0;
     gold_dia_lv=0;
+    xp=0;
+    bul_zin_lv=1;
     return;
 }
 
@@ -560,6 +740,7 @@ at_lv=1;
         
       
         datavar.G = G.ToString();
+            datavar.xp = xp.ToString();
                 
 datavar.dia=dia;
          datavar.at_lv =at_lv;
@@ -573,6 +754,7 @@ datavar.dia=dia;
         datavar.at_dia_lv = at_dia_lv;
         datavar.gold_dia_lv = gold_dia_lv;
        datavar.kill_count= kill_count;
+        datavar.bul_zin_lv= bul_zin_lv;
 
     string json = JsonUtility.ToJson(datavar);
         Debug.Log(json);
