@@ -30,12 +30,16 @@ public int kill_count;
     public int gold_dia_lv;
 
         public int bul_zin_lv;
+    public int yongold_lv;
+    public int him_lv;
 
 }
 public class InGame : MonoBehaviour
 {
+    public int yongold_lv;
+    public int him_lv;
 
-        public BigInteger G;
+    public BigInteger G;
 public int dia;
     public int at_lv;
     public int kill_count;
@@ -67,6 +71,14 @@ public Text dia_t;
     public BigInteger zuc_drop_G;
 
     public Text next_stage_count_text;
+
+
+    public Text yongold_lvup_about_text;
+    public Text him_lvup_about_text;
+
+
+    public Text yongold_lvup_btn_text;
+    public Text him_lvup_btn_text;
 
 
     public SpriteRenderer mon_img;
@@ -405,11 +417,11 @@ public Text yeongu_btn_text;
         }
         jackpot_lv_about_text.text = "잭팟(몬스터 처치시 대량 골드 획득) 현재:+" + jackpot_lv_eff + "배 \n 비용:골드" + jackpot_lv_udg.ToString();
 
-        auto_lv_eff = 1f;
+        auto_lv_eff = 4f;
         auto_lv_udg = 10000;
         for (int i = 0; i < auto_lv; i++)
         {
-            auto_lv_eff -= 0.02f;
+            auto_lv_eff -= 0.04f;
             auto_lv_udg += auto_lv_udg / 100 * 20;
         }
         auto_lv_about_text.text = "총알 자동 발사 현재:" + auto_lv_eff + "초마다(발사) \n 비용:골드" + auto_lv_udg.ToString();
@@ -715,6 +727,8 @@ dia=datavar.dia;
             gold_dia_lv = datavar.gold_dia_lv;
             kill_count = datavar.kill_count;
                    bul_zin_lv= datavar.bul_zin_lv;
+           yongold_lv = datavar.yongold_lv;
+            him_lv = datavar.him_lv;
         }
         else{
 G=0;
@@ -731,6 +745,8 @@ at_lv=1;
     gold_dia_lv=0;
     xp=0;
     bul_zin_lv=1;
+            yongold_lv=0;
+ him_lv=0;
     return;
 }
 
@@ -755,6 +771,8 @@ datavar.dia=dia;
         datavar.gold_dia_lv = gold_dia_lv;
        datavar.kill_count= kill_count;
         datavar.bul_zin_lv= bul_zin_lv;
+        datavar.yongold_lv = yongold_lv;
+        datavar.him_lv = him_lv;
 
     string json = JsonUtility.ToJson(datavar);
         Debug.Log(json);

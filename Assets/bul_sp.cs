@@ -30,7 +30,7 @@ public class bul_sp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine("auto_balsa_coru", GameObject.Find("all_canv").GetComponent<InGame>().auto_lv_eff);
     }
     
     public void bul_balsa(){
@@ -65,6 +65,13 @@ public class bul_sp : MonoBehaviour
       }
         
        
+    }
+
+    IEnumerator auto_balsa_coru(float delayTime)
+    {
+        bul_balsa();
+        yield return new WaitForSeconds(delayTime);
+        StartCoroutine("auto_balsa_coru", GameObject.Find("all_canv").GetComponent<InGame>().auto_lv_eff);
     }
 
 
