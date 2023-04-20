@@ -161,6 +161,22 @@ public Text dia_t;
     public Text alert_text;
 
    public Button yeongu_btn;
+
+   public BigInteger yeongu_udg;
+   public int yeongu_udg_dia;
+   public BigInteger yeongu_gold_eff;
+   public BigInteger yeongu_ad_plus_eff;
+   public int yeongu_get_dia_plus_eff;
+   public float yeongu_lvup_hwac;
+   public BigInteger yeongu_sale_eff;
+
+    public Button him_btn;
+
+    public BigInteger him_udg;
+    public int him_udg_dia;
+    public BigInteger him_at_eff;
+    public float him_lvup_hwac;
+    public BigInteger him_cridem_plus_eff;
     // Start is called before the first frame update
     void Awake(){
     my_hp_val=100;
@@ -534,10 +550,273 @@ bul_up_btn_about.text="최종 공격력 증가[탄알 강화] 다이아"+bul_zin
 
 
 
+        yeongu_udg = 2500000;
+        yeongu_udg_dia = 100;
+        yeongu_ad_plus_eff=1;
+        yeongu_get_dia_plus_eff = 0;
+        yeongu_gold_eff = 0;
+        yeongu_sale_eff = 0;
+        yeongu_lvup_hwac = 1000;
+
+        for(int i = 1; i < yongold_lv; i++)
+        {
+         
+            if (i % 10 > 0)
+            {
+                yeongu_lvup_hwac = 1000;
+           
+                yeongu_gold_eff += 250;
+            
+
+            }
+            
+            if(i%20 > 0)
+            {
+                yeongu_lvup_hwac = 900;
+
+           
+                yeongu_gold_eff += 550;
+                yeongu_sale_eff = 10; 
+            }
+      
+            
+            if (i % 30 > 0)
+            {
+                yeongu_lvup_hwac = 800;
+             
+                yeongu_gold_eff += 1550;
+                yeongu_sale_eff=12;
+                yeongu_get_dia_plus_eff = 1;
+            }
+
+            if (i % 40 > 0)
+            {
+                yeongu_lvup_hwac =700;
+
+                yeongu_gold_eff += 2550;
+                yeongu_sale_eff = 14;
+                yeongu_get_dia_plus_eff = 1;
+                yeongu_ad_plus_eff = 2;
+            }
 
 
 
-next_stage_count_text.text="다음 스테이지 "+(kill_count%300)+"/300마리".ToString();
+            if (i % 50 > 0)
+            {
+                yeongu_lvup_hwac = 600;
+
+                yeongu_gold_eff +=3550;
+                yeongu_sale_eff = 16;
+                yeongu_get_dia_plus_eff = 1;
+                yeongu_ad_plus_eff = 5;
+            }
+
+            if (i %60 > 0)
+            {
+                yeongu_lvup_hwac = 500;
+
+                yeongu_gold_eff +=5550;
+                yeongu_get_dia_plus_eff = 2;
+                yeongu_sale_eff = 18;
+                yeongu_ad_plus_eff = 8;
+            }
+
+            if (i % 70 > 0)
+            {
+                yeongu_lvup_hwac = 400;
+
+                yeongu_gold_eff += 7550;
+                yeongu_get_dia_plus_eff = 2;
+                yeongu_sale_eff = 20;
+                yeongu_ad_plus_eff = 12;
+            }
+
+            if (i % 80 > 0)
+            {
+                yeongu_lvup_hwac = 300;
+
+                yeongu_gold_eff += 9550;
+                yeongu_get_dia_plus_eff = 3;
+                yeongu_sale_eff = 22;
+                yeongu_ad_plus_eff = 18;
+            }
+
+            if (i % 90 > 0)
+            {
+                yeongu_lvup_hwac = 200;
+
+                yeongu_gold_eff += 12550;
+                yeongu_sale_eff = 24;
+                yeongu_get_dia_plus_eff = 3;
+                yeongu_ad_plus_eff = 24;
+            }
+
+            if (i % 100 > 0)
+            {
+                yeongu_lvup_hwac = 100;
+
+                yeongu_gold_eff += 15550;
+yeongu_sale_eff=26;
+                yeongu_ad_plus_eff = 30;
+                yeongu_get_dia_plus_eff = 3;
+            }
+
+            if (i % 110 > 0)
+            {
+                yeongu_lvup_hwac = 50;
+
+                yeongu_gold_eff += 35550;
+                yeongu_sale_eff =28;
+                yeongu_get_dia_plus_eff = 4;
+                yeongu_ad_plus_eff = 35;
+            }
+
+
+            if (i>120)
+            {
+                yeongu_lvup_hwac =10;
+
+                yeongu_gold_eff += 55550;
+
+            }
+        }
+
+        for(int i = 0; i < yongold_lv*10; i+=10)
+        {
+            yeongu_udg *= 10;
+        }
+
+        yongold_lvup_btn_text.text = "업그레이드" + yeongu_udg + "골드\n " + yeongu_udg_dia + "다이아\n성공확률"+(yeongu_lvup_hwac/10)+"%".ToString();
+        yongold_lvup_about_text.text = "연금술" + yongold_lv + "lv\n추가 골드+" + yeongu_gold_eff + "%\n업글비용 할인-" + yeongu_sale_eff + "%\n광고 보상 증가+" + yeongu_ad_plus_eff + "%\n다이아 획득량+" + yeongu_get_dia_plus_eff + "개".ToString();
+
+
+
+       him_udg = 2500000;
+        him_udg_dia = 100;
+        him_cridem_plus_eff = 0;
+        him_at_eff = 0;
+        him_lvup_hwac = 1000;
+      
+        for (int i = 1; i < him_lv; i++)
+        {
+           
+            if (i % 10 > 0)
+            {
+                him_lvup_hwac = 1000;
+
+               him_at_eff += 250;
+
+
+            }
+
+            if (i % 20 > 0)
+            {
+
+                him_lvup_hwac = 900;
+
+                him_cridem_plus_eff =50;
+                him_at_eff += 550;
+            }
+
+
+            if (i % 30 > 0)
+            {
+
+                him_lvup_hwac =800;
+                him_cridem_plus_eff = 550;
+                him_at_eff += 1250;
+            }
+
+            if (i % 40 > 0)
+            {
+
+                him_lvup_hwac = 700;
+                him_cridem_plus_eff = 1250;
+                him_at_eff += 2250;
+            }
+
+
+
+            if (i % 50 > 0)
+            {
+
+                him_lvup_hwac = 600;
+                him_cridem_plus_eff = 3850;
+                him_at_eff += 5250;
+            }
+
+            if (i % 60 > 0)
+            {
+
+                him_lvup_hwac = 500;
+                him_cridem_plus_eff = 7000;
+                him_at_eff += 7250;
+            }
+
+            if (i % 70 > 0)
+            {
+
+                him_lvup_hwac = 400;
+                him_cridem_plus_eff = 15000;
+                him_at_eff += 10250;
+            }
+
+            if (i % 80 > 0)
+            {
+
+                him_lvup_hwac = 300;
+                him_cridem_plus_eff = 30000;
+                him_at_eff += 15250;
+            }
+
+            if (i % 90 > 0)
+            {
+
+                him_lvup_hwac = 200;
+                him_cridem_plus_eff = 55000;
+                him_at_eff +=20250;
+            }
+
+            if (i % 100 > 0)
+            {
+
+                him_lvup_hwac = 100;
+                him_cridem_plus_eff = 107000;
+                him_at_eff += 30250;
+            }
+
+            if (i % 110 > 0)
+            {
+                him_cridem_plus_eff = 227000;
+                him_lvup_hwac = 50;
+                him_at_eff += 40250;
+            }
+
+
+            if (i > 120)
+            {
+               him_lvup_hwac = 10;
+                him_cridem_plus_eff = 347000;
+                him_at_eff += 55550;
+
+            }
+        }
+
+        for (int i = 0; i < him_lv * 10; i += 10)
+        {
+           him_udg *= 10;
+        }
+
+       him_lvup_btn_text.text = "업그레이드" + him_udg + "골드\n " + him_udg_dia + "다이아\n성공확률" + (him_lvup_hwac / 10) + "%".ToString();
+        him_lvup_about_text.text = "힘" + him_lv + "lv\n추가 공격력+" + him_at_eff + "%\n추가치명타데미지+" + him_cridem_plus_eff + "%".ToString();
+
+
+
+
+
+
+
+        next_stage_count_text.text="다음 스테이지 "+(kill_count%300)+"/300마리".ToString();
     }
 
       public void bul_zin_up_func()

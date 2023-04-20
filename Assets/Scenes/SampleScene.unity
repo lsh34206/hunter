@@ -1775,6 +1775,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c99dfcb0abebf4ba3d0ac22cffbf3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yongold_lv: 0
+  him_lv: 0
   dia: 0
   at_lv: 0
   kill_count: 0
@@ -1794,6 +1796,10 @@ MonoBehaviour:
   stage: 1
   stage_t: {fileID: 172237405}
   next_stage_count_text: {fileID: 1078896046}
+  yongold_lvup_about_text: {fileID: 1248233013}
+  him_lvup_about_text: {fileID: 232813524}
+  yongold_lvup_btn_text: {fileID: 880017567}
+  him_lvup_btn_text: {fileID: 1234668334}
   mon_img: {fileID: 6573162953378513974, guid: 8977869cec68014499bf674274687dc2, type: 3}
   mon_img_1: {fileID: 21300000, guid: c6551d5c9e174f44ba33a4a4e61b94d0, type: 3}
   mon_img_2: {fileID: 21300002, guid: c6551d5c9e174f44ba33a4a4e61b94d0, type: 3}
@@ -1842,6 +1848,13 @@ MonoBehaviour:
   alert: {fileID: 1870365656}
   alert_text: {fileID: 1220859437}
   yeongu_btn: {fileID: 1568290696}
+  yeongu_udg_dia: 0
+  yeongu_get_dia_plus_eff: 0
+  yeongu_lvup_hwac: 0
+  him_btn: {fileID: 2081847847}
+  him_udg_dia: 0
+  him_get_dia_plus_eff: 0
+  him_lvup_hwac: 0
   yeongu_btn_text: {fileID: 944248238}
 --- !u!1 &341283012
 GameObject:
@@ -2277,7 +2290,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2138043785}
   m_HandleRect: {fileID: 2138043784}
   m_Direction: 2
-  m_Value: 0.6193085
+  m_Value: 0.25489202
   m_Size: 0.2791252
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5661,7 +5674,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000000057742, y: 494}
+  m_AnchoredPosition: {x: 0.00009048411, y: 966.8807}
   m_SizeDelta: {x: 0, y: 1800.0883}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1198506630
