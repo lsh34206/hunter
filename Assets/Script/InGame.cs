@@ -140,6 +140,20 @@ public Text dia_t;
       public Sprite mon_img_13;
        public Sprite mon_img_14;
         public Sprite mon_img_15;
+        public Sprite mon_img_16;
+        public Sprite mon_img_17;
+        public Sprite mon_img_18;
+        public Sprite mon_img_19;
+        public Sprite mon_img_20;
+        public Sprite mon_img_21;
+        public Sprite mon_img_22;
+        public Sprite mon_img_23;
+        public Sprite mon_img_24;
+        public Sprite mon_img_25;
+        public Sprite mon_img_26;
+        public Sprite mon_img_27;
+        public Sprite mon_img_28;
+        public Sprite mon_img_29;
 
     public Image bul_img;
     public Sprite bul_img_1;
@@ -287,7 +301,16 @@ public int at_ad_eff_set=1;
 
 
 
-    public void pop_up_in_monster_false_func(){
+
+
+
+
+
+
+
+
+
+public void pop_up_in_monster_false_func(){
         pop_up_in_monster=false;
     }
 
@@ -302,9 +325,18 @@ public int at_ad_eff_set=1;
              zuc_hhp_val=100;
                 my_at_val=15;
 }
+
+ 
     void Start()
     {
     Load();
+ 
+    
+    
+    
+    
+    
+
 
      
        my_hp_val=100;
@@ -316,6 +348,7 @@ public int at_ad_eff_set=1;
         mode="일반";
           stage_fan();
              txtload();
+         
         StartCoroutine("xp2_coru",1);
         StartCoroutine("gold2_coru",1);
         StartCoroutine("at2_coru",1);
@@ -828,7 +861,7 @@ stage_fan();
         for (int i = 0; i < cridem_lv; i++)
         {
             cridem_lv_eff += i;
-            cridem_lv_udg *= cridem_lv_udg / 50;
+            cridem_lv_udg += cridem_lv_udg / 50;
         }
           cridem_lv_udg-=cridem_lv_udg/100*yeongu_sale_eff;
         cridem_lv_about_text.text = "치명타 데미지 현재:+" + cridem_lv_eff + "%\n 비용:골드" + cridem_lv_udg.ToString();

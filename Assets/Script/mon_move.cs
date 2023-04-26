@@ -15,8 +15,28 @@ public class mon_move : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, 30f);
-       barctrl();
-     
+        BigInteger max = 100;
+        BigInteger subxp = GameObject.Find("all_canv").GetComponent<InGame>().xp;
+        GameObject.Find("all_canv").GetComponent<InGame>().lv = 1;
+        for(BigInteger i=subxp;max < subxp;subxp-=max){
+            GameObject.Find("all_canv").GetComponent<InGame>().lv++;
+            max += (max/100);
+        }
+
+
+
+
+        BigInteger max100 = max / 100;
+        float lvfill = 0;
+        for(BigInteger i = 0;i < subxp;i += max100){
+            lvfill+= 0.01f;
+        }
+        GameObject.Find("all_canv").GetComponent<InGame>().xp_bar.fillAmount= lvfill;
+        GameObject.Find("all_canv").GetComponent<InGame>().xp_text.text=GameObject.Find("all_canv").GetComponent<InGame>().lv+"lv".ToString();
+
+
+
+
     }
 
     public void barctrl(){
