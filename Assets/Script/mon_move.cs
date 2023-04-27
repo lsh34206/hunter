@@ -38,7 +38,9 @@ public class mon_move : MonoBehaviour
 
 
     }
-
+void OnEnable(){
+    barctrl();
+}
     public void barctrl(){
         
     

@@ -50,7 +50,144 @@ public int kill_count;
 }
 public class InGame : MonoBehaviour
 {
+public static class BigIntegerManager
+    {      
+        private static readonly BigInteger _unitSize = 1000;  
+        private static Dictionary<string, BigInteger> _unitsMap = new Dictionary<string, BigInteger>();
+        private static Dictionary<string, int> _idxMap = new Dictionary<string, int>(); 
+        private static readonly List<string> _units = new List<string>();
+        private static int _unitCapacity = 5; 
+        private static readonly int _asciiA = 65;
+        private static readonly int _asciiZ = 90;
+        private static bool isInitialize = false;
+        private static void UnitInitialize(int capacity)
+        {
+            _unitCapacity += capacity;
+            
+            //Initialize 0~999
+            _units.Clear();  
+            _unitsMap.Clear();
+            _idxMap.Clear(); 
+            _units.Add("");
+            _unitsMap.Add("", 0);
+            _idxMap.Add("", 0);   
+            
+            
+            //capacity만큼 사전생성, capacity가 1인경우 A~Z
+            //capacity가 2인경우 AA~AZ
+            //capacity 1마다 ascii 알파벳 26개 생성되는 원리
+            for (int n = 0; n <= _unitCapacity; n++)
+            {
+                for (int i = _asciiA; i <= _asciiZ; i++)
+                {
+                    string unit = null;
+                    if (n == 0) 
+                        unit = ((char) i).ToString();
+                    else
+                    {
+                        var nCount = (float)n / 26; 
+                        var nextChar = _asciiA + n - 1;  
+                        var fAscii = (char) nextChar;
+                        var tAscii = (char) i;
+                        unit = $"{fAscii}{tAscii}"; 
+                    }  
+                    _units.Add(unit); 
+                    _unitsMap.Add(unit, BigInteger.Pow(_unitSize, _units.Count-1)); 
+                    _idxMap.Add(unit, _units.Count-1);
+                }
+            }    
+            isInitialize = true;
+        }
 
+
+        private static int GetPoint(int value)
+        {
+                return (value % 1000) / 100; 
+        }
+        
+        private static (int value, int idx, int point) GetSize(BigInteger value)
+        { 
+            //단위를 구하기 위한 값으로 복사
+            var currentValue = value; 
+            var current = (value / _unitSize) % _unitSize;
+            var idx = 0; 
+            var lastValue = 0;
+            // 현재 값이 999(unitSize) 이상인경우 나눠야함.
+            while (currentValue > _unitSize -1)
+            {
+                var predCurrentValue = currentValue / _unitSize;
+                if (predCurrentValue <= _unitSize - 1)
+                    lastValue = (int)currentValue;
+                currentValue = predCurrentValue;
+                idx += 1; 
+            }
+
+            var point = GetPoint(lastValue);  
+            var originalValue = currentValue * 1000; 
+            while (_units.Count <= idx) 
+                UnitInitialize(5);  
+            return ((int)currentValue, idx, point);
+        }
+
+        /// <summary>
+        /// 숫자를 단위로 리턴
+        /// </summary>
+        /// <param name="value">값</param>
+        /// <returns></returns>
+        public static string GetUnit(BigInteger value)
+        {
+            if (isInitialize == false) 
+                UnitInitialize(5);
+            
+            var sizeStruct = GetSize(value);
+            return $"{sizeStruct.value}.{sizeStruct.point}{_units[sizeStruct.idx]}"; 
+        }  
+        
+        /// <summary>
+        /// 단위를 숫자로 변경
+        /// 10A = 10000으로 리턴
+        /// 1.2A = 1200으로 리턴
+        /// 소수점 1자리만 지원함
+        /// </summary>
+        /// <param name="unit">단위</param>
+        /// <returns></returns>
+        public static BigInteger UnitToValue(string unit)
+        {       
+            if (isInitialize == false) 
+                UnitInitialize(5);
+            
+            var split = unit.Split('.');
+            //소수점에 관한 연산 들어감
+            if (split.Length >= 2)
+            { 
+                var value = BigInteger.Parse(split[0]); 
+                var point = BigInteger.Parse((Regex.Replace(split[1], "[^0-9]", "")));
+                var unitStr = Regex.Replace(split[1], "[^A-Z]", "");
+
+                if (point == 0) return (_unitsMap[unitStr] * value);
+                else
+                {
+                    var unitValue = _unitsMap[unitStr];
+                    return (unitValue * value) + (unitValue/10) * point;
+                }
+          
+            }
+            //비소수 연산 들어감
+            else
+            {
+                var value = BigInteger.Parse((Regex.Replace(unit, "[^0-9]", ""))); 
+                var unitStr = Regex.Replace(unit, "[^A-Z]", ""); 
+                while (_unitsMap.ContainsKey(unitStr) == false) 
+                    UnitInitialize(5); 
+                var result = _unitsMap[unitStr] * value;
+
+                if (result == 0) 
+                    return int.Parse((unit));
+                else 
+                    return result;
+            } 
+        }
+    }
 public AudioSource audioSource;
 
  public AudioClip bgm;
@@ -170,6 +307,23 @@ public Text dia_t;
        public Sprite bul_img_12;
           public Sprite bul_img_13;
              public Sprite bul_img_14;
+             public Sprite bul_img_15;
+             public Sprite bul_img_16;
+             public Sprite bul_img_17;
+             public Sprite bul_img_18;
+             public Sprite bul_img_19;
+             public Sprite bul_img_20;
+             public Sprite bul_img_21;
+             public Sprite bul_img_22;
+             public Sprite bul_img_23;
+             public Sprite bul_img_24;
+             public Sprite bul_img_25;
+
+             public Sprite bul_img_26;
+
+             public Sprite bul_img_27;
+             public Sprite bul_img_28;
+             public Sprite bul_img_29;
 
         public Text bul_name;
              public Text bul_up_btn_about;
@@ -344,7 +498,7 @@ public void pop_up_in_monster_false_func(){
                zuc_hp_val=100;
              zuc_hhp_val=100;
                 my_at_val=15;
-        stage = 0;
+        stage = 1;
         mode="일반";
           stage_fan();
              txtload();
@@ -353,6 +507,7 @@ public void pop_up_in_monster_false_func(){
         StartCoroutine("gold2_coru",1);
         StartCoroutine("at2_coru",1);
                 StartCoroutine("rade_coru",1);
+                GameObject.Find("mon").GetComponent<mon_move>().barctrl();
         
     }
 public Text yeongu_btn_text;
@@ -621,8 +776,189 @@ txtload();
                   zuc_drop_xp+=  zuc_drop_xp/10*7;
             }
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_14;
+        } else if (stage ==15)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 17; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_15;
+        } else if (stage ==16)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 21; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_16;
+        }else if (stage ==17)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 28; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_17;
+        }else if (stage ==18)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 35; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_18;
+        }else if (stage ==19)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 43; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_19;
+        }else if (stage ==20)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 51; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_20;
+        }else if (stage ==21)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 61; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_21;
+        }else if (stage ==22)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 70; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_22;
+        }else if (stage ==23)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 80; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_23;
+        }else if (stage ==24)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 90; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_24;
+        }else if (stage ==25)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 100; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_25;
+        }else if (stage ==26)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 120; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_26;
+        }else if (stage ==27)
+        {
+           zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+              zuc_drop_xp=20;
+            for(int i = 0; i < 140; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                  zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_27;
         }
-
 
        
 
@@ -669,7 +1005,7 @@ stage_t.text = "레이드 "+rade_lv+"lv[스프레이 드래곤]".ToString();
         zuc_drop_xp=200;
             zuc_drop_G=200;
 
-         for(int i = 0;i<12;i++){
+         for(int i = 0;i<25;i++){
               zuc_hp_val *= 7;
         zuc_hhp_val *= 7;
         zuc_drop_xp*=4;
@@ -694,7 +1030,7 @@ if(rade_1_hhp<=0){
         zuc_drop_xp=200;
             zuc_drop_G=200;
 
-         for(int i = 0;i<24;i++){
+         for(int i = 0;i<80;i++){
               zuc_hp_val *= 7;
         zuc_hhp_val *= 7;
         zuc_drop_xp*=4;
@@ -717,7 +1053,7 @@ if(rade_2_hhp<=0){
         zuc_drop_xp=200;
             zuc_drop_G=200;
 
-         for(int i = 0;i<50;i++){
+         for(int i = 0;i<150;i++){
               zuc_hp_val *= 7;
         zuc_hhp_val *= 7;
         zuc_drop_xp*=4;

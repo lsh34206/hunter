@@ -3315,6 +3315,21 @@ MonoBehaviour:
   bul_img_12: {fileID: 21300000, guid: 1194a6669ee931c47af1769bbb07bd60, type: 3}
   bul_img_13: {fileID: 21300000, guid: 6b1758c83efae86458d856a14237593b, type: 3}
   bul_img_14: {fileID: 21300000, guid: d4912b744ae326044905a80224bfc69b, type: 3}
+  bul_img_15: {fileID: 21300000, guid: a12844b58b6d4bc49b8a64ef6194e681, type: 3}
+  bul_img_16: {fileID: 21300000, guid: bd8a22b90598e4c48b84eba5cbd1937c, type: 3}
+  bul_img_17: {fileID: 21300000, guid: b73e37e9a1ebee941b6dce3d698c9373, type: 3}
+  bul_img_18: {fileID: 21300000, guid: 6ff65bf51b743e0428480236b2d50423, type: 3}
+  bul_img_19: {fileID: 21300000, guid: 2d105f9fed8036741baef45c328b0f33, type: 3}
+  bul_img_20: {fileID: 21300000, guid: 8e592212170b1ed41b0c7034c9957c06, type: 3}
+  bul_img_21: {fileID: 21300000, guid: 80d193659eab7304aa04917dc6e31166, type: 3}
+  bul_img_22: {fileID: 21300000, guid: d08f4f5978b66404e853c23f787840e5, type: 3}
+  bul_img_23: {fileID: 21300000, guid: 9644c3ab53bd8f347a3d3017a28bed1d, type: 3}
+  bul_img_24: {fileID: 21300000, guid: f1bd3d02f498ea3409f970b137ae5b95, type: 3}
+  bul_img_25: {fileID: 21300000, guid: 738d60bc8e111134fad31065ebb02fcb, type: 3}
+  bul_img_26: {fileID: 21300000, guid: 5393a8134e3239f40b1ca6f0f3c9bc2a, type: 3}
+  bul_img_27: {fileID: 21300000, guid: 77799d28bbe084242917aba23bfd520d, type: 3}
+  bul_img_28: {fileID: 0}
+  bul_img_29: {fileID: 0}
   bul_name: {fileID: 1713331383}
   bul_up_btn_about: {fileID: 1310425129}
   rade1_btn_about: {fileID: 2052664946}
