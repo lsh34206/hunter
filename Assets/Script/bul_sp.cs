@@ -31,6 +31,7 @@ public class bul_sp : MonoBehaviour
     void Start()
     {
         StartCoroutine("auto_balsa_coru", GameObject.Find("all_canv").GetComponent<InGame>().auto_lv_eff);
+        StartCoroutine("auto_eff_coru",0.05f);
     }
     
     public void bul_balsa(){
@@ -78,7 +79,16 @@ public class bul_sp : MonoBehaviour
         yield return new WaitForSeconds(delayTime);
         StartCoroutine("auto_balsa_coru", GameObject.Find("all_canv").GetComponent<InGame>().auto_lv_eff);
     }
+    IEnumerator auto_eff_coru(float delayTime) {
+        if(GameObject.Find("all_canv").GetComponent<InGame>().auto_bool){
+            bul_balsa();
+        }else{
 
+        }
+
+        yield return new WaitForSeconds(0.05f);
+        StartCoroutine("auto_eff_coru",0.05f);
+    }
 
     // Update is called once per frame
     void Update()

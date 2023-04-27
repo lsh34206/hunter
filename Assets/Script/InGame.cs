@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Text;
+using System;
+using System.Data;
 using System.IO;
 using System.Numerics;
    using Random = UnityEngine.Random;
@@ -200,6 +202,7 @@ public AudioSource audioSource;
                       public int xp_ad_time;
                   public int gold_ad_time;
                      public int at_ad_time;
+                     public int auto_time;
  public int rade_ticket;
                      public int rade_time=0;
 
@@ -208,6 +211,7 @@ public AudioSource audioSource;
 
                    
     public bool xp_ad_bool;
+    public bool auto_bool;
                   public bool gold_ad_bool;
                      public bool at_ad_bool;
 
@@ -287,11 +291,17 @@ public Text dia_t;
         public Sprite mon_img_23;
         public Sprite mon_img_24;
         public Sprite mon_img_25;
+
         public Sprite mon_img_26;
+
         public Sprite mon_img_27;
         public Sprite mon_img_28;
+        
         public Sprite mon_img_29;
-
+        public Sprite mon_img_30;
+        public Sprite mon_img_31;
+        
+        
     public Image bul_img;
     public Sprite bul_img_1;
     public Sprite bul_img_2;
@@ -307,23 +317,7 @@ public Text dia_t;
        public Sprite bul_img_12;
           public Sprite bul_img_13;
              public Sprite bul_img_14;
-             public Sprite bul_img_15;
-             public Sprite bul_img_16;
-             public Sprite bul_img_17;
-             public Sprite bul_img_18;
-             public Sprite bul_img_19;
-             public Sprite bul_img_20;
-             public Sprite bul_img_21;
-             public Sprite bul_img_22;
-             public Sprite bul_img_23;
-             public Sprite bul_img_24;
-             public Sprite bul_img_25;
-
-             public Sprite bul_img_26;
-
-             public Sprite bul_img_27;
-             public Sprite bul_img_28;
-             public Sprite bul_img_29;
+             
 
         public Text bul_name;
              public Text bul_up_btn_about;
@@ -444,6 +438,7 @@ public GameObject rade_mon_img_obj;
 public Text xp_ad_about_text;
 public Text gold_ad_about_text;
 public Text at_ad_about_text;
+public Text auto_ad_about_text;
 
 public int xp_ad_time_set=180;
 public int gold_ad_time_set=180;
@@ -455,16 +450,7 @@ public int at_ad_eff_set=1;
 
 
 
-
-
-
-
-
-
-
-
-
-public void pop_up_in_monster_false_func(){
+    public void pop_up_in_monster_false_func(){
         pop_up_in_monster=false;
     }
 
@@ -479,18 +465,9 @@ public void pop_up_in_monster_false_func(){
              zuc_hhp_val=100;
                 my_at_val=15;
 }
-
- 
     void Start()
     {
     Load();
- 
-    
-    
-    
-    
-    
-
 
      
        my_hp_val=100;
@@ -502,12 +479,12 @@ public void pop_up_in_monster_false_func(){
         mode="일반";
           stage_fan();
              txtload();
-         
         StartCoroutine("xp2_coru",1);
         StartCoroutine("gold2_coru",1);
         StartCoroutine("at2_coru",1);
                 StartCoroutine("rade_coru",1);
-                GameObject.Find("mon").GetComponent<mon_move>().barctrl();
+                StartCoroutine("auto_time_coru",1);
+                Debug.Log((DateTime.Now.ToString(("dd"))));
         
     }
 public Text yeongu_btn_text;
@@ -522,7 +499,15 @@ public Text yeongu_btn_text;
 
     }
 
-
+    public void stat_reset()
+    {
+        point += (stat_at_lv + stat_gold_lv + stat_xp_lv + stat_cridem_lv);
+        stat_at_lv = 0;
+        stat_xp_lv = 0;
+        stat_cridem_lv = 0;
+        stat_gold_lv = 0;
+        txtload();
+    }
    IEnumerator xp2_coru(float delayTime) {
      if(xp_ad_bool){
 xp_ad_time--;
@@ -572,6 +557,20 @@ txtload();
       yield return new WaitForSeconds(1);
            StartCoroutine("rade_coru",1);
    }
+      
+      IEnumerator auto_time_coru(float delayTime) {
+          if(auto_bool){
+              auto_time--;
+              txtload();
+          }else{
+
+          }
+
+          yield return new WaitForSeconds(1);
+          StartCoroutine("auto_time_coru",1);
+      }
+      
+     
 
 
      public void stage_fan()
@@ -958,6 +957,48 @@ txtload();
                   zuc_drop_xp+=  zuc_drop_xp/10*7;
             }
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_27;
+        }else if (stage ==28)
+        {
+            zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+            zuc_drop_xp=20;
+            for(int i = 0; i < 155; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_28;
+        }else if (stage ==29)
+        {
+            zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+            zuc_drop_xp=20;
+            for(int i = 0; i < 170; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_29;
+        }else if (stage ==30)
+        {
+            zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+            zuc_drop_xp=20;
+            for(int i = 0; i < 185; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_30;
         }
 
        
@@ -1098,7 +1139,7 @@ if(rade_3_hhp<=0){
   stage++;
    
         }else{
-             stage--;
+             
             alert_text.text="현재 스테이지에서 적을 300마리 이상 처치하세요";
             alert.SetActive(true);
         }
@@ -1170,7 +1211,7 @@ stage_fan();
          yeongu_btn.interactable=true;
           yeongu_btn_text.text="연구소";
     }
-        G_t.text=G.ToString();
+        G_t.text=BigIntegerManager.GetUnit(G).ToString();
            dia_t.text=dia.ToString();
            my_at_val=10;
         at_lv_udg = 100;
@@ -1182,7 +1223,7 @@ stage_fan();
             at_bigyo = i+1;
         }
         at_lv_udg-=at_lv_udg/100*yeongu_sale_eff;
-        at_lv_about_text.text = "공격력 증가 현재:" + my_at_val+"\n 비용:골드" + at_lv_udg.ToString();
+        at_lv_about_text.text = "공격력 증가 현재:" + BigIntegerManager.GetUnit(my_at_val)+"\n 비용:골드" + BigIntegerManager.GetUnit(at_lv_udg).ToString();
        crihwac_lv_eff=0;
         crihwac_lv_udg = 1000;
         for (int i = 0; i < crihwac_lv; i++)
@@ -1191,7 +1232,7 @@ stage_fan();
             crihwac_lv_udg *= 2;
         }
            crihwac_lv_udg-=crihwac_lv_udg/100*yeongu_sale_eff;
-        crihwac_lv_about_text.text = "치명타 확률 현재:" + crihwac_lv_eff + "\n 비용:골드" + crihwac_lv_udg.ToString();
+        crihwac_lv_about_text.text = "치명타 확률 현재:" + crihwac_lv_eff + "\n 비용:골드" + BigIntegerManager.GetUnit(crihwac_lv_udg).ToString();
         cridem_lv_eff = 0;
         cridem_lv_udg = 100;
         for (int i = 0; i < cridem_lv; i++)
@@ -1200,7 +1241,7 @@ stage_fan();
             cridem_lv_udg += cridem_lv_udg / 50;
         }
           cridem_lv_udg-=cridem_lv_udg/100*yeongu_sale_eff;
-        cridem_lv_about_text.text = "치명타 데미지 현재:+" + cridem_lv_eff + "%\n 비용:골드" + cridem_lv_udg.ToString();
+        cridem_lv_about_text.text = "치명타 데미지 현재:+" + cridem_lv_eff + "%\n 비용:골드" + BigIntegerManager.GetUnit(cridem_lv_udg).ToString();
 
         dia_drop_lv_eff = 1;
         dia_drop_lv_udg = 100000;
@@ -1210,7 +1251,7 @@ stage_fan();
             dia_drop_lv_udg *= 10;
         }
          dia_drop_lv_udg-=dia_drop_lv_udg/100*yeongu_sale_eff;
-        dia_drop_lv_about_text.text = "다이아 드랍시 받는 다이아 현재:+" + dia_drop_lv_eff + "개\n 비용:골드" + dia_drop_lv_udg.ToString();
+        dia_drop_lv_about_text.text = "다이아 드랍시 받는 다이아 현재:+" + dia_drop_lv_eff + "개\n 비용:골드" + BigIntegerManager.GetUnit(dia_drop_lv_udg).ToString();
 
         jackpot_lv_eff = 100;
         jackpot_lv_udg = 10000;
@@ -1220,7 +1261,7 @@ stage_fan();
             jackpot_lv_udg *= 10;
         }
          jackpot_lv_udg-=jackpot_lv_udg/100*yeongu_sale_eff;
-        jackpot_lv_about_text.text = "잭팟(몬스터 처치시 대량 골드 획득) 현재:+" + jackpot_lv_eff + "배 \n 비용:골드" + jackpot_lv_udg.ToString();
+        jackpot_lv_about_text.text = "잭팟(몬스터 처치시 대량 골드 획득) 현재:+" + jackpot_lv_eff + "배 \n 비용:골드" + BigIntegerManager.GetUnit(jackpot_lv_udg).ToString();
 
         auto_lv_eff = 4f;
         auto_lv_udg = 10000;
@@ -1230,7 +1271,7 @@ stage_fan();
             auto_lv_udg += auto_lv_udg / 100 * 20;
         }
               auto_lv_udg-=auto_lv_udg/100*yeongu_sale_eff;
-        auto_lv_about_text.text = "총알 자동 발사 현재:" + auto_lv_eff + "초마다(발사) \n 비용:골드" + auto_lv_udg.ToString();
+        auto_lv_about_text.text = "총알 자동 발사 현재:" + auto_lv_eff + "초마다(발사) \n 비용:골드" + BigIntegerManager.GetUnit(auto_lv_udg).ToString();
 
         jackpot_hwac_lv_eff = 2;
         jackpot_hwac_lv_udg = 50000;
@@ -1240,7 +1281,7 @@ stage_fan();
             jackpot_hwac_lv_udg *= 20;
         }
           jackpot_hwac_lv_udg-=jackpot_hwac_lv_udg/100*yeongu_sale_eff;
-        jackpot_hwac_lv_about_text.text = "잭팟확률 현재:" + jackpot_hwac_lv_eff + "% \n 비용:골드" + jackpot_hwac_lv_udg.ToString();
+        jackpot_hwac_lv_about_text.text = "잭팟확률 현재:" + jackpot_hwac_lv_eff + "% \n 비용:골드" + BigIntegerManager.GetUnit(jackpot_hwac_lv_udg).ToString();
 
         at_up_lv_eff = 0;
         at_up_lv_udg = 1;
@@ -1477,7 +1518,7 @@ yeongu_sale_eff=26;
             yeongu_udg *= 10;
         }
 yeongu_udg-=yeongu_udg/100*yeongu_sale_eff;
-        yongold_lvup_btn_text.text = "업그레이드" + yeongu_udg + "골드\n " + yeongu_udg_dia + "다이아\n성공확률"+(yeongu_lvup_hwac/10)+"%".ToString();
+        yongold_lvup_btn_text.text = "업그레이드" + BigIntegerManager.GetUnit(yeongu_udg) + "골드\n " + yeongu_udg_dia + "다이아\n성공확률"+(yeongu_lvup_hwac/10)+"%".ToString();
         yongold_lvup_about_text.text = "연금술" + yongold_lv + "lv\n추가 골드+" + yeongu_gold_eff + "%\n업글비용 할인-" + yeongu_sale_eff + "%\n광고 보상 증가+" + yeongu_ad_plus_eff + "%\n다이아 획득량+" + yeongu_get_dia_plus_eff + "개".ToString();
 
 
@@ -1598,7 +1639,7 @@ yeongu_udg-=yeongu_udg/100*yeongu_sale_eff;
            him_udg *=10;
         }
 him_udg-=him_udg/100*yeongu_sale_eff;
-       him_lvup_btn_text.text = "업그레이드" + him_udg + "골드\n " + him_udg_dia + "다이아\n성공확률" + (him_lvup_hwac / 10) + "%".ToString();
+       him_lvup_btn_text.text = "업그레이드" + BigIntegerManager.GetUnit(him_udg) + "골드\n " + him_udg_dia + "다이아\n성공확률" + (him_lvup_hwac / 10) + "%".ToString();
         him_lvup_about_text.text = "힘" + him_lv + "lv\n추가 공격력+" + him_at_eff + "%\n추가치명타데미지+" + him_cridem_plus_eff + "%".ToString();
 
 stat=lv*4-(stat_at_lv+stat_cridem_lv+stat_gold_lv+stat_xp_lv);
@@ -1666,6 +1707,16 @@ rade_bool=true;
 }
 }
 
+if (auto_time <= 0)
+{
+    auto_bool = false;
+    auto_ad_about_text.text = "[AD]오토클릭";
+}
+else
+{
+    auto_ad_about_text.text = auto_time.ToString();
+    auto_bool = true;
+}
 
 
 
@@ -1789,9 +1840,9 @@ if(rade_3_hhp<=0){
          }
          rade_3_hhp=zuc_hhp_val;
 }
-rade1_btn_about.text="레이드 레벨1 티켓-1\n남은체력:"+rade_1_hhp.ToString();
-rade2_btn_about.text="레이드 레벨2 티켓-1\n남은체력:"+rade_2_hhp.ToString();
-rade3_btn_about.text="레이드 레벨3 티켓-1\n남은체력:"+rade_3_hhp.ToString();
+rade1_btn_about.text="레이드 레벨1 티켓-1\n남은체력:"+BigIntegerManager.GetUnit(rade_1_hhp).ToString();
+rade2_btn_about.text="레이드 레벨2 티켓-1\n남은체력:"+BigIntegerManager.GetUnit(rade_2_hhp).ToString();
+rade3_btn_about.text="레이드 레벨3 티켓-1\n남은체력:"+BigIntegerManager.GetUnit(rade_3_hhp).ToString();
 
 
 }
@@ -1970,6 +2021,14 @@ public void xp_ad_func(){
              GameObject.Find("all_canv").GetComponent<xp2>().Show();
         }
     }
+public void auto_ad_func(){
+    if(auto_bool){
+        alert_text.text = "이미 적용중";
+        alert.SetActive(true);
+    }else{
+        GameObject.Find("all_canv").GetComponent<auto_ad>().Show();
+    }
+}
     
     public void gold_ad_func(){
         if(gold_ad_bool){
