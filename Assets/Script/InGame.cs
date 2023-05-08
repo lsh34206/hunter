@@ -34,6 +34,7 @@ public int kill_count;
     public int yongold_lv;
     public int him_lv;
         public int point;
+
          public int stat_at_lv;
            public int stat_cridem_lv;
              public int stat_gold_lv;
@@ -46,12 +47,16 @@ public int kill_count;
                      public string rade_1_hhp;
                      public string rade_2_hhp;
                      public string rade_3_hhp;
+                     public int gx2_ad_point;
                      
-                   
+                   public string daily_check_date;
+                      public int rade_ticket_ad_point;
 
 }
 public class InGame : MonoBehaviour
-{
+{       public int gx2_ad_point;
+
+
 public static class BigIntegerManager
     {      
         private static readonly BigInteger _unitSize = 1000;  
@@ -194,6 +199,9 @@ public AudioSource audioSource;
 
  public AudioClip bgm;
 
+
+  public string daily_check_date;
+
   public bool pop_up_in_monster=false;
     public int xp_ad_point;
                   public int gold_ad_point;
@@ -203,6 +211,28 @@ public AudioSource audioSource;
                   public int gold_ad_time;
                      public int at_ad_time;
                      public int auto_time;
+                     
+
+  public int redp_xp_time;
+
+      public int redp_xp_eff=1;
+  
+                        public int redp_at_eff=1;
+   
+
+  public Text xp_500_text;
+     public Text xp_4000_text;
+                        public Text at_500_text;
+     public Text at_4000_text;
+
+       public int xp_500_time;
+     public int xp_4000_time;
+                        public int at_500_time;
+     public int at_4000_time;
+
+     public BigInteger at_rp_eff=1;
+          public BigInteger xp_rp_eff=1;
+
  public int rade_ticket;
                      public int rade_time=0;
 
@@ -215,6 +245,11 @@ public AudioSource audioSource;
                   public bool gold_ad_bool;
                      public bool at_ad_bool;
 
+                         public bool xp_500_bool;
+     public bool xp_4000_bool;
+                        public bool at_500_bool;
+     public bool at_4000_bool;
+
     public int yongold_lv;
     public int him_lv;
  public int point;
@@ -222,6 +257,8 @@ public AudioSource audioSource;
     public BigInteger rade_1_hhp;
                      public BigInteger rade_2_hhp;
                      public BigInteger rade_3_hhp;
+
+ public int rade_ticket_ad_point;
 
                              public BigInteger rade_minus_hp;
 public int dia;
@@ -263,6 +300,7 @@ public Text dia_t;
 
     public Text yongold_lvup_btn_text;
     public Text him_lvup_btn_text;
+
 
 
     public SpriteRenderer mon_img;
@@ -440,6 +478,7 @@ public Text gold_ad_about_text;
 public Text at_ad_about_text;
 public Text auto_ad_about_text;
 
+
 public int xp_ad_time_set=180;
 public int gold_ad_time_set=180;
 public int at_ad_time_set=180;
@@ -449,7 +488,7 @@ public int gold_ad_eff_set=1;
 public int at_ad_eff_set=1;
 
 
-
+public string nan="입문";
     public void pop_up_in_monster_false_func(){
         pop_up_in_monster=false;
     }
@@ -477,22 +516,44 @@ public int at_ad_eff_set=1;
                 my_at_val=15;
         stage = 1;
         mode="일반";
+        
           stage_fan();
-             txtload();
+             
         StartCoroutine("xp2_coru",1);
         StartCoroutine("gold2_coru",1);
         StartCoroutine("at2_coru",1);
                 StartCoroutine("rade_coru",1);
                 StartCoroutine("auto_time_coru",1);
-                Debug.Log((DateTime.Now.ToString(("dd"))));
-        
+                 StartCoroutine("xp_500_time_coru",1);
+                       StartCoroutine("xp_4000_time_coru",1);
+                         StartCoroutine("at_500_time_coru",1);
+                       StartCoroutine("at_4000_time_coru",1);
+           if(daily_check_date==DateTime.Now.ToString("dd")||daily_check_date==null){
+
+           }else{
+            alert_text.text="일일보상\n레드포인트3개,레이드 티켓3개";
+        alert.SetActive(true);
+        point+=3;
+        rade_ticket+=3;
+    rade_ticket_ad_point=0;
+ daily_check_date=DateTime.Now.ToString("dd");
+           }
+        txtload();
     }
 public Text yeongu_btn_text;
 
    public void at_sound_play(){
     audioSource.Play();
  }
+public void gx2_ad(){
+    if(gx2_ad_point>=2){
+               alert_text.text="하루 2회";
+        alert.SetActive(true);
+    }else{
+            GameObject.Find("all_canv").GetComponent<gx2>().Show();
+    }
 
+}
     // Update is called once per frame
     void Update()
     {
@@ -501,7 +562,7 @@ public Text yeongu_btn_text;
 
     public void stat_reset()
     {
-        point += (stat_at_lv + stat_gold_lv + stat_xp_lv + stat_cridem_lv);
+        stat += (stat_at_lv + stat_gold_lv + stat_xp_lv + stat_cridem_lv);
         stat_at_lv = 0;
         stat_xp_lv = 0;
         stat_cridem_lv = 0;
@@ -568,6 +629,59 @@ txtload();
 
           yield return new WaitForSeconds(1);
           StartCoroutine("auto_time_coru",1);
+      }
+      
+
+            IEnumerator xp_500_time_coru(float delayTime) {
+          if(xp_500_bool){
+              xp_500_time--;
+                  xp_rp_eff=500;
+              txtload();
+          }else{
+xp_rp_eff=1;
+          }
+
+          yield return new WaitForSeconds(1);
+          StartCoroutine("xp_500_time_coru",1);
+      }
+
+               IEnumerator xp_4000_time_coru(float delayTime) {
+          if(xp_4000_bool){
+              xp_4000_time--;
+               xp_rp_eff=4000;
+              txtload();
+          }else{
+            xp_rp_eff=1;
+          }
+
+          yield return new WaitForSeconds(1);
+          StartCoroutine("xp_4000_time_coru",1);
+      }
+
+              IEnumerator at_500_time_coru(float delayTime) {
+          if(at_500_bool){
+              at_500_time--;
+              at_rp_eff=500;
+              txtload();
+          }else{
+   at_rp_eff=1;
+          }
+
+          yield return new WaitForSeconds(1);
+          StartCoroutine("at_500_time_coru",1);
+      }
+
+               IEnumerator at_4000_time_coru(float delayTime) {
+          if(at_4000_bool){
+              at_4000_time--;
+              at_rp_eff=4000;
+              txtload();
+          }else{
+          at_rp_eff=1;
+          }
+
+          yield return new WaitForSeconds(1);
+          StartCoroutine("at_4000_time_coru",1);
       }
       
      
@@ -999,6 +1113,20 @@ txtload();
                 zuc_drop_xp+=  zuc_drop_xp/10*7;
             }
             mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_30;
+        }else if (stage ==31)
+        {
+            zuc_hp_val = 300;
+            zuc_hhp_val = 300;
+            zuc_drop_G = 20;
+            zuc_drop_xp=20;
+            for(int i = 0; i < 200; i++)
+            {
+                zuc_hp_val *= 5;
+                zuc_hhp_val *= 5;
+                zuc_drop_G *= 3;
+                zuc_drop_xp+=  zuc_drop_xp/10*7;
+            }
+            mon_img.GetComponent<SpriteRenderer>().sprite = mon_img_31;
         }
 
        
@@ -1128,22 +1256,26 @@ if(rade_3_hhp<=0){
 
     public void stage_back()
     {
-        stage--;
+        if(stage<=0){
+
+        }else{
+               stage--;
+        }
+     
         stage_fan();
     }
     public void stage_next()
     {
       if(mode=="일반"){
-            for(int i =0;i<stage;i++){
-        if(i*300<=kill_count){
-  stage++;
-   
-        }else{
-             
-            alert_text.text="현재 스테이지에서 적을 300마리 이상 처치하세요";
-            alert.SetActive(true);
-        }
+        
+          if(stage>=31){
+
+          }else{
+              stage++;
           }
+
+   
+      
 
           if(stage==0){
             stage++;
@@ -1167,38 +1299,60 @@ stage_fan();
  
     txtload();
 }
-
+public void rade_hp_danwi(){
+     rade_hp_text.text=BigIntegerManager.GetUnit(zuc_hhp_val)+"/"+BigIntegerManager.GetUnit(zuc_hp_val).ToString();
+}
 public void rade1_st(){
 
+ if(rade_ticket<=0){
+          alert_text.text="레이드 입장권 부족";
+        alert.SetActive(true);
+    }else{
+        rade_ticket--;
     rade_time=30;
     stage=1;
     mode="레이드";
     rade_lv=1;
 stage_fan();
- 
+rade_hp_danwi();
+
     txtload();
+    }
 }
 
 public void rade2_st(){
-
+ if(rade_ticket<=0){
+          alert_text.text="레이드 입장권 부족";
+        alert.SetActive(true);
+    }else{
+        rade_ticket--;
     rade_time=30;
     stage=1;
     mode="레이드";
     rade_lv=2;
 stage_fan();
- 
+rade_hp_danwi();
+
     txtload();
+    }
 }
 
 public void rade3_st(){
-
+    if(rade_ticket<=0){
+          alert_text.text="레이드 입장권 부족";
+        alert.SetActive(true);
+    }else{
+        rade_ticket--;
     rade_time=30;
     stage=1;
     mode="레이드";
     rade_lv=3;
 stage_fan();
- 
+rade_hp_danwi();
+
     txtload();
+    }
+
 }
 
     public void txtload(){
@@ -1285,7 +1439,7 @@ stage_fan();
 
         at_up_lv_eff = 0;
         at_up_lv_udg = 1;
-        for (int i = 0; i < at_dia_lv; i++)
+        for (int i = 1; i < at_dia_lv; i++)
         {
             at_up_lv_eff++;
             at_up_lv_udg++;
@@ -1294,7 +1448,7 @@ stage_fan();
 
         gold_up_lv_eff = 0;
         gold_up_lv_udg = 1;
-        for (int i = 0; i < gold_dia_lv; i++)
+        for (int i = 1; i < gold_dia_lv; i++)
         {
             gold_up_lv_eff++;
             gold_up_lv_udg++;
@@ -1645,31 +1799,30 @@ him_udg-=him_udg/100*yeongu_sale_eff;
 stat=lv*4-(stat_at_lv+stat_cridem_lv+stat_gold_lv+stat_xp_lv);
 stat_text.text="스텟 포인트:"+stat.ToString();
 
-stat_at_lv=0;
 for(int i = 1;i<stat_at_lv;i++){
     stat_at_lv_eff+=i;
 }
 stat_at_lv_about_text.text="스텟 강화->공격력+"+stat_at_lv_eff+"%\n스텟 포인트1 사용".ToString();
 
-stat_cridem_lv=0;
+
 for(int i = 1;i<stat_cridem_lv;i++){
     stat_cridem_lv_eff+=i;
 }
 stat_cridem_lv_about_text.text="스텟 강화->치명타 공격력+"+stat_cridem_lv_eff+"%\n스텟 포인트1 사용".ToString();
 
-stat_gold_lv=0;
+
 for(int i = 1;i<stat_gold_lv;i++){
     stat_gold_lv_eff+=i*2;
 }
 stat_gold_lv_about_text.text="스텟 강화->추가 골드 획득량+"+stat_gold_lv_eff+"%\n스텟 포인트1 사용".ToString();
 
-stat_xp_lv=0;
+
 for(int i = 1;i<stat_xp_lv;i++){
     stat_xp_lv_eff+=i;
 }
 stat_xp_lv_about_text.text="스텟 강화->추가 경험치+"+stat_xp_lv_eff+"%\n스텟 포인트1 사용".ToString();
 
-my_at_val+=my_at_val/100*(at_up_lv_eff+him_at_eff+stat_at_lv_eff+at_up_lv_eff)*bul_zin_eff;
+my_at_val+=my_at_val/100*(at_up_lv_eff+him_at_eff+stat_at_lv_eff+at_up_lv_eff)*bul_zin_eff*at_rp_eff;
 cridem_lv_eff+=cridem_lv_eff/100*(him_cridem_plus_eff+stat_cridem_lv_eff);
 G_plus_eff=gold_up_lv_eff+stat_gold_lv_eff+yeongu_gold_eff+gold_up_lv_eff;
 
@@ -1714,7 +1867,7 @@ if (auto_time <= 0)
 }
 else
 {
-    auto_ad_about_text.text = auto_time.ToString();
+    auto_ad_about_text.text = "[AD]오토클릭"+auto_time.ToString();
     auto_bool = true;
 }
 
@@ -1740,7 +1893,7 @@ xp_ad_eff_set++;
 xp_ad_bool=true;
 
 if(xp_ad_bool){
-    xp_ad_about_text.text=xp_ad_time.ToString();
+    xp_ad_about_text.text="xp버프"+xp_ad_time.ToString();
     
 }else{
    xp_ad_eff_set=1; 
@@ -1762,7 +1915,7 @@ gold_ad_eff_set++;
 }else{
 gold_ad_bool=true;
 if(gold_ad_bool){
-    gold_ad_about_text.text=gold_ad_time.ToString();
+    gold_ad_about_text.text="G버프"+gold_ad_time.ToString();
 }else{
     gold_ad_eff_set=1;
 }
@@ -1784,14 +1937,55 @@ at_ad_eff_set++;
 }else{
 at_ad_bool=true;
 if(at_ad_bool){
-    at_ad_about_text.text=at_ad_time.ToString();
+    at_ad_about_text.text="공격력 버프"+at_ad_time.ToString();
 }else{
     at_ad_eff_set=1;
 }
 }
 
+
+if(xp_500_time<=0){
+xp_500_bool=false;
+xp_500_text.text="10초간 경험치500배 레드포인트20";
+}else{
+  xp_500_bool=true;  
+  xp_500_text.text=xp_500_time.ToString();
+}
+
+
+
+if(xp_4000_time<=0){
+xp_4000_bool=false;
+xp_4000_text.text="15초간 경험치4000배 레드포인트35";
+}else{
+  xp_4000_bool=true;  
+  xp_4000_text.text=xp_4000_time.ToString();
+}
+
+
+if(at_500_time<=0){
+at_500_bool=false;
+at_500_text.text="10초간 공격력500배 레드포인트20";
+}else{
+  at_500_bool=true;  
+  at_500_text.text=at_500_time.ToString();
+}
+
+
+
+if(at_4000_time<=0){
+at_4000_bool=false;
+at_4000_text.text="15초간 공격력4000배 레드포인트35";
+}else{
+  at_4000_bool=true;  
+  at_4000_text.text=at_4000_time.ToString();
+}
+
+
+
+
 if(mode=="일반"){
-    next_stage_count_text.text="다음 스테이지 "+(kill_count%300)+"/300마리".ToString();
+    next_stage_count_text.text="처치 수"+kill_count+"마리".ToString();
 }else if(mode=="레이드"){
    next_stage_count_text.text="레이드 "+rade_lv+"lv "+rade_time+"초 남음".ToString();
 }
@@ -1846,12 +2040,137 @@ rade3_btn_about.text="레이드 레벨3 티켓-1\n남은체력:"+BigIntegerManag
 
 
 }
+public void yongold_up_func(){
+    if(dia<yeongu_udg_dia||G<yeongu_udg){
+        alert_text.text="재화부족";
+        alert.SetActive(true);
+    }else{
+        if(Random.Range(1,1001)<yeongu_lvup_hwac){
+G-=yeongu_udg;
+dia-=yeongu_udg_dia;
+yongold_lv++;
+txtload();
+        }else{
+  
+        }
+    }
+}
+public void him_up_func(){
+    if(dia<him_udg_dia||G<him_udg){
+        alert_text.text="재화부족";
+        alert.SetActive(true);
+    }else{
+        if(Random.Range(1,1001)<him_lvup_hwac){
+G-=him_udg;
+dia-=him_udg_dia;
+him_lv++;
+txtload();
+        }else{
+  
+        }
+    }
+}
+public void at_stat_up(){
+    if(stat<1){
 
+    }else{
+  stat--;
+  stat_at_lv++;
+  txtload();
+    }
+  
+}
 
+public void xp_stat_up(){
+    if(stat<1){
 
+    }else{
+  stat--;
+  stat_xp_lv++;
+  txtload();
+    }
+  
+}
+
+public void gold_stat_up(){
+    if(stat<1){
+
+    }else{
+  stat--;
+  stat_gold_lv++;
+  txtload();
+    }
+  
+}
+
+public void cridem_stat_up(){
+    if(stat<1){
+
+    }else{
+  stat--;
+  stat_cridem_lv++;
+  txtload();
+    }
+  
+}
+
+public void at_rp_500_func(){
+    if(point <20){
+        alert_text.text="레드포인트 부족";
+        alert.SetActive(true);
+    }else{
+        point-=20;
+        at_500_time+=10;
+        txtload();
+    }
+}
+public void at_rp_4000_func(){
+    if(point <35){
+        alert_text.text="레드포인트 부족";
+                alert.SetActive(true);
+    }else{
+        point-=35;
+        at_4000_time+=15;
+        txtload();
+    }
+}
+
+public void xp_rp_500_func(){
+    if(point <20){
+        alert_text.text="레드포인트 부족";
+                alert.SetActive(true);
+    }else{
+        point-=20;
+        xp_500_time+=10;
+        txtload();
+    }
+}
+public void xp_rp_4000_func(){
+    if(point <35){
+        alert_text.text="레드포인트 부족";
+                alert.SetActive(true);
+    }else{
+        point-=35;
+        xp_4000_time+=15;
+        txtload();
+    }
+}
         
     public void rade_end_func(){
-
+if(rade_lv==1){
+    alert_text.text="레이드 처치 보상:레드포인트+25";
+    alert.SetActive(true);
+    point+=25;
+}else if(rade_lv==2){
+        alert_text.text="레이드 처치 보상:레드포인트+50";
+    alert.SetActive(true);
+    point+=50;
+}else if(rade_lv==3){
+        alert_text.text="레이드 처치 보상:레드포인트+80";
+    alert.SetActive(true);
+    point+=80;
+}
+txtload();
     }
 
     
@@ -1895,7 +2214,11 @@ rade3_btn_about.text="레이드 레벨3 티켓-1\n남은체력:"+BigIntegerManag
 
     public void crihwac_up_func()
     {
-        if (G < crihwac_lv_udg)
+        if(crihwac_lv>=100){
+              alert_text.text = "최대레벨";
+            alert.SetActive(true);
+        }else{
+               if (G < crihwac_lv_udg)
         {
             alert_text.text = "골드부족";
             alert.SetActive(true);
@@ -1906,6 +2229,8 @@ rade3_btn_about.text="레이드 레벨3 티켓-1\n남은체력:"+BigIntegerManag
             G -= crihwac_lv_udg;
             txtload();
         }
+        }
+     
     }
 
     public void cridem_up_func()
@@ -1954,8 +2279,11 @@ rade3_btn_about.text="레이드 레벨3 티켓-1\n남은체력:"+BigIntegerManag
     }
 
     public void jackpot_hwac_up_func()
-    {
-        if (G < jackpot_hwac_lv_udg)
+    {if(jackpot_hwac_lv >=45){
+          alert_text.text = "최대레벨";
+            alert.SetActive(true);
+    }else{
+          if (G < jackpot_hwac_lv_udg)
         {
             alert_text.text = "골드부족";
             alert.SetActive(true);
@@ -1967,10 +2295,15 @@ rade3_btn_about.text="레이드 레벨3 티켓-1\n남은체력:"+BigIntegerManag
             txtload();
         }
     }
+      
+    }
 
     public void auto_up_func()
-    {
-        if (G < auto_lv_udg)
+    {if(auto_lv>=45){
+          alert_text.text = "최대레벨";
+            alert.SetActive(true);
+    }else{
+                if (G < auto_lv_udg)
         {
             alert_text.text = "골드부족";
             alert.SetActive(true);
@@ -1981,6 +2314,8 @@ rade3_btn_about.text="레이드 레벨3 티켓-1\n남은체력:"+BigIntegerManag
             G -= auto_lv_udg;
             txtload();
         }
+    }
+
     }
 
     public void dia_at_up_func()
@@ -2088,8 +2423,10 @@ dia=datavar.dia;
                           xp_ad_point=datavar.xp_ad_point;    
                       gold_ad_point=datavar.gold_ad_point;    
                        at_ad_point=datavar.at_ad_point; 
-
+           daily_check_date=datavar.daily_check_date;   
                     rade_ticket=datavar.rade_ticket;
+                        gx2_ad_point=datavar.gx2_ad_point;
+                      rade_ticket_ad_point=datavar.rade_ticket_ad_point; 
                   rade_1_hhp=BigInteger.Parse(datavar.rade_1_hhp);
                           rade_2_hhp=BigInteger.Parse(datavar.rade_2_hhp);
                                rade_3_hhp=BigInteger.Parse(datavar.rade_3_hhp);
@@ -2125,8 +2462,9 @@ at_lv=1;
                rade_1_hhp=0;
                        rade_2_hhp=0;
                         rade_3_hhp=0;
-                     
-         
+                 rade_ticket_ad_point=0; 
+                    daily_check_date=null; 
+                    gx2_ad_point=0;
     return;
 }
 
@@ -2164,10 +2502,13 @@ datavar.dia=dia;
                        datavar.at_ad_point=at_ad_point;    
                          
      datavar.rade_ticket=rade_ticket;
+       datavar.gx2_ad_point=gx2_ad_point;
                   datavar.rade_1_hhp=rade_1_hhp.ToString();
                           datavar.rade_2_hhp=rade_2_hhp.ToString();
                                datavar.rade_3_hhp=rade_3_hhp.ToString();
-                     
+              
+                                  datavar.rade_ticket_ad_point=rade_ticket_ad_point;  
+                       datavar.daily_check_date=daily_check_date;    
     string json = JsonUtility.ToJson(datavar);
         Debug.Log(json);
         string path = Application.persistentDataPath + "/data.Json";

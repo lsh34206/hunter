@@ -167,12 +167,15 @@ public class mon_move : MonoBehaviour
        barctrl();
       
     }
+    public void mon_del(){
+         Destroy(gameObject);
+    }
 void OnEnable(){
     barctrl();
 }
     public void barctrl(){
         
-    
+  
      
 
 if(GameObject.Find("all_canv").GetComponent<InGame>().mode=="레이드"){
@@ -183,7 +186,7 @@ if(GameObject.Find("all_canv").GetComponent<InGame>().mode=="레이드"){
 mybarfill_rade+= 0.01f;
 }
    GameObject.Find("all_canv").GetComponent<InGame>().rade_hp_bar.fillAmount =mybarfill_rade;
-   GameObject.Find("all_canv").GetComponent<InGame>().rade_hp_text.text=BigIntegerManager.GetUnit((GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val))+"/"+BigIntegerManager.GetUnit(GameObject.Find("all_canv").GetComponent<InGame>().zuc_hp_val).ToString();
+   GameObject.Find("all_canv").GetComponent<InGame>().rade_hp_text.text=BigIntegerManager.GetUnit(GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val)+"/"+BigIntegerManager.GetUnit(GameObject.Find("all_canv").GetComponent<InGame>().zuc_hp_val).ToString();
 
 }
  
@@ -222,6 +225,7 @@ GameObject.Find("all_canv").GetComponent<InGame>().xp_text.text=GameObject.Find(
                    if(GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val <=0){
                    if(GameObject.Find("all_canv").GetComponent<InGame>().mode=="레이드"){
                     GameObject.Find("all_canv").GetComponent<InGame>().rade_time=0;
+                    
                    }
  GameObject.Find("all_canv").GetComponent<InGame>().zuc_hhp_val=GameObject.Find("all_canv").GetComponent<InGame>().zuc_hp_val;
 Destroy(gameObject);
@@ -314,25 +318,16 @@ barctrl();
  
          
     }  
+ 
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.Find("all_canv").GetComponent<InGame>().stage == 1)
-        {
-           
-        }
-        else if(GameObject.Find("all_canv").GetComponent<InGame>().stage == 2)
-        {
-           
-        }
+    if(GameObject.Find("all_canv").GetComponent<InGame>().mode=="레이드"){
+        Destroy(gameObject);
 
-        if(GameObject.Find("all_canv").GetComponent<InGame>().stage==0){
-           
-        }
-        speed=180;
-        if(GameObject.Find("all_canv").GetComponent<InGame>().mode=="레이드"){
-            speed=18;
-        }
+                }
+        speed=250;
+   
         
         transform.Translate(new Vector3(speed, 0, 0)*Time.deltaTime);
        
