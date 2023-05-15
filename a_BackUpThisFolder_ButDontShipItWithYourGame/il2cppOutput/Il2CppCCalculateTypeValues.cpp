@@ -48359,6 +48359,8 @@ struct InGame_t32F82AD675287474D0F7D822EE1490422E90799B  : public MonoBehaviour_
 	String_t* ___nan_229;
 	// UnityEngine.UI.Text InGame::yeongu_btn_text
 	Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* ___yeongu_btn_text_230;
+	// System.Int32 InGame::stat_han
+	int32_t ___stat_han_231;
 };
 
 // UnityEngine.UIElements.Label

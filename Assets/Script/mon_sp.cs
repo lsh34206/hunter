@@ -11,7 +11,7 @@ public class mon_sp : MonoBehaviour
     void Start()
     {
       
-            StartCoroutine("mon_sp_coru",5);
+            StartCoroutine("mon_sp_coru",2.5f);
 
          
     }
@@ -30,8 +30,8 @@ if(GameObject.Find("all_canv").GetComponent<InGame>().mode=="레이드"||GameObj
       
           
         
-      yield return new WaitForSeconds(5);
-           StartCoroutine("mon_sp_coru",5);
+      yield return new WaitForSeconds(2.5f);
+           StartCoroutine("mon_sp_coru",2.5f);
 
          
  

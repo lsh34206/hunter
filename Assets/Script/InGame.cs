@@ -1798,26 +1798,29 @@ him_udg-=him_udg/100*yeongu_sale_eff;
 
 stat=lv*4-(stat_at_lv+stat_cridem_lv+stat_gold_lv+stat_xp_lv);
 stat_text.text="스텟 포인트:"+stat.ToString();
-
-for(int i = 1;i<stat_at_lv;i++){
+stat_at_lv_eff=0;
+stat_cridem_lv_eff=0;
+stat_gold_lv_eff=0;
+stat_xp_lv_eff=0;
+for(int i = 0;i<stat_at_lv;i++){
     stat_at_lv_eff+=i;
 }
 stat_at_lv_about_text.text="스텟 강화->공격력+"+stat_at_lv_eff+"%\n스텟 포인트1 사용".ToString();
 
 
-for(int i = 1;i<stat_cridem_lv;i++){
+for(int i = 0;i<stat_cridem_lv;i++){
     stat_cridem_lv_eff+=i;
 }
 stat_cridem_lv_about_text.text="스텟 강화->치명타 공격력+"+stat_cridem_lv_eff+"%\n스텟 포인트1 사용".ToString();
 
 
-for(int i = 1;i<stat_gold_lv;i++){
+for(int i = 0;i<stat_gold_lv;i++){
     stat_gold_lv_eff+=i*2;
 }
 stat_gold_lv_about_text.text="스텟 강화->추가 골드 획득량+"+stat_gold_lv_eff+"%\n스텟 포인트1 사용".ToString();
 
 
-for(int i = 1;i<stat_xp_lv;i++){
+for(int i = 0;i<stat_xp_lv;i++){
     stat_xp_lv_eff+=i;
 }
 stat_xp_lv_about_text.text="스텟 강화->추가 경험치+"+stat_xp_lv_eff+"%\n스텟 포인트1 사용".ToString();
@@ -2070,45 +2073,59 @@ txtload();
         }
     }
 }
+public int stat_han=1;
+public void stat_han_1(){
+  stat_han=1;
+  
+}
+public void stat_han_10(){
+  stat_han=10;
+  
+}
+public void stat_han_100(){
+  stat_han=100;
+  
+}
+
 public void at_stat_up(){
-    if(stat<1){
+    if(stat<stat_han){
 
     }else{
-  stat--;
-  stat_at_lv++;
+  stat-=stat_han;
+  stat_at_lv+=stat_han;
   txtload();
     }
   
 }
 
 public void xp_stat_up(){
-    if(stat<1){
+    if(stat<stat_han){
 
     }else{
-  stat--;
-  stat_xp_lv++;
+  stat-=stat_han;
+  stat_xp_lv+=stat_han;
   txtload();
     }
   
 }
 
 public void gold_stat_up(){
-    if(stat<1){
+    if(stat<stat_han){
 
     }else{
-  stat--;
-  stat_gold_lv++;
+  stat-=stat_han;
+  stat_gold_lv+=stat_han;
   txtload();
     }
   
 }
 
 public void cridem_stat_up(){
-    if(stat<1){
+    if(stat<stat_han){
 
     }else{
-  stat--;
-  stat_cridem_lv++;
+  stat-=stat_han;
+  stat_cridem_lv+=stat_han;
   txtload();
     }
   

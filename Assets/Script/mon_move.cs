@@ -326,7 +326,7 @@ barctrl();
         Destroy(gameObject);
 
                 }
-        speed=250;
+        speed=125;
    
         
         transform.Translate(new Vector3(speed, 0, 0)*Time.deltaTime);
